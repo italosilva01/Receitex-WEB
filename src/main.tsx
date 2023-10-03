@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Landing } from "./components/Page/Landing/index.tsx";
+import { Landing } from "./Page/Landing/index.tsx";
 
 const router = createBrowserRouter([
   {
