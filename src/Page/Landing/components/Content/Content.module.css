@@ -1,0 +1,46 @@
+.imgSally {
+  display: block;
+  position: absolute;
+
+  z-index: 1000;
+  width: 900px;
+  height: 900px;
+  top: 120px;
+
+  @media (max-width: 1440px) {
+    width: 500px;
+    height: 500px;
+  }
+}
+.imgOnda {
+  width: 900px;
+  height: 900px;
+
+  @media (max-width: 1440px) {
+    width: 500px;
+    height: 500px;
+  }
+}
+.containerGrid {
+  height: calc(100vh - 50px);
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+}
+
+.title {
+  color: #0047ff !important;
+  font-family: Inter;
+  font-size: 64px !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  line-height: normal !important;
+}
+
+.containerImgs {
+  border: 1px solid red;
+  position: relative;
+  width: max-content;
+  height: calc(100vh - 50px);
+}
