@@ -1,0 +1,15 @@
+.container {
+  border-bottom: 1px solid #cdd2d2;
+
+  width: 100vw;
+  height: 3.125rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  width: 82%;
+  justify-content: space-between;
+}
