@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styles from './SignUp.module.css';
 import Input from '@mui/joy/Input';
 import Card from '@mui/joy/Card';
+import Button from '@mui/joy/Button';
 
 
 
@@ -61,10 +62,10 @@ function SignUp() {
               />
             </div>
             <div className={styles['button-container']}>
-              <button className={styles['button']} type="submit">
+              <Button variant="solid"  sx={{margin: '5px'}} className={styles['button']} type="submit">
                 Criar conta
-              </button>
-              <button className={styles['button']}>Já tenho uma conta</button>
+              </Button>
+              <Button  variant="soft"  sx={{margin: '5px'}} className={styles['button']}>Já tenho uma conta</Button>
             </div>
           </form>
         </Card>
