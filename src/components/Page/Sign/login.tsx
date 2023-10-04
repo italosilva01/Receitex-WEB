@@ -3,6 +3,8 @@ import styles from './SignUp.module.css';
 import Input from '@mui/joy/Input';
 import Card from '@mui/joy/Card';
 import Button from '@mui/joy/Button';
+import { redirect } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 
@@ -23,8 +25,13 @@ function SignIn() {
   
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+      return redirect("/");
       // Lógica para enviar os dados do formulário para o servidor ou realizar outras ações
     };
+
+    const renderSignUp = () => {
+      return redirect("/signup");
+    }
   
     return (
         <div className={styles['center-container']}>
@@ -62,10 +69,12 @@ function SignIn() {
                 />
                 </div>
                 <div className={styles['button-container']}>
-                <Button variant="solid"  sx={{margin: '5px'}} className={styles['button']} type="submit">
+                <Button variant="solid" sx={{margin: '0px 0px 5px 0px'}} className={styles['button']} type="submit">
                     Login
                 </Button>
-                <Button variant="soft" sx={{margin: '5px'}} className={styles['button']}>Não tenho conta</Button>
+                <Link to="/signup">
+                  <Button variant="soft" sx={{width: '100%'}} className={styles['button']} onClick={renderSignUp}>Não tenho conta</Button>
+                </Link>
                 </div>
             </form>
             </Card>
