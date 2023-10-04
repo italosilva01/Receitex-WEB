@@ -1,0 +1,11 @@
+.container {
+  width: min-content;
+  display: flex;
+  gap: 0.625rem;
+  overflow: hidden;
+}
+
+.imageReceitex {
+  width: 80px;
+  height: 80px;
+}
