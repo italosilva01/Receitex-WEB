@@ -27,8 +27,8 @@ function SignUp() {
     };
   
     return (
-      
-        <Card variant="solid" color="primary" invertedColors sx={{ maxWidth: 343}} className={styles['signup-container']}>
+      <div className={styles['center-container']}>
+        <Card variant="solid" color="primary" invertedColors sx={{ minWidth: 343}} className={styles['signup-container']}>
           <h2 className={styles['signup-title']}>Criar conta</h2>
           <form onSubmit={handleSubmit}>
             <div className={styles['input-field']}>
@@ -69,6 +69,7 @@ function SignUp() {
             </div>
           </form>
         </Card>
+      </div>
     );
   }
   

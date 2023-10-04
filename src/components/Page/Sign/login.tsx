@@ -27,48 +27,49 @@ function SignIn() {
     };
   
     return (
-      
-        <Card variant="solid" color="primary" invertedColors sx={{ maxWidth: 343}} className={styles['signup-container']}>
-          <h2 className={styles['signup-title']}>Login</h2>
-          <form onSubmit={handleSubmit}>
-            <div className={styles['input-field']}>
-              <label htmlFor="email" className={styles['input-label']}>
-                Email:
-              </label>
-              <Input
-                size="sm"
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={styles['input']}
-                variant="soft"
-              />
-            </div>
-            <div className={styles['input-field']}>
-              <label htmlFor="senha" className={styles['input-label']}>
-                Senha:
-              </label>
-              <Input
-                size="sm"
-                type="password"
-                id="senha"
-                name="senha"
-                value={formData.senha}
-                onChange={handleChange}
-                className={styles['input']}
-                variant="soft"
-              />
-            </div>
-            <div className={styles['button-container']}>
-              <Button variant="solid"  sx={{margin: '5px'}} className={styles['button']} type="submit">
-                Login
-              </Button>
-              <Button variant="soft" sx={{margin: '5px'}} className={styles['button']}>Não tenho conta</Button>
-            </div>
-          </form>
-        </Card>
+        <div className={styles['center-container']}>
+            <Card variant="solid" color="primary" invertedColors sx={{ minWidth: 343}} className={styles['signup-container']}>
+            <h2 className={styles['signup-title']}>Login</h2>
+            <form onSubmit={handleSubmit}>
+                <div className={styles['input-field']}>
+                <label htmlFor="email" className={styles['input-label']}>
+                    Email:
+                </label>
+                <Input
+                    size="sm"
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={styles['input']}
+                    variant="soft"
+                />
+                </div>
+                <div className={styles['input-field']}>
+                <label htmlFor="senha" className={styles['input-label']}>
+                    Senha:
+                </label>
+                <Input
+                    size="sm"
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    value={formData.senha}
+                    onChange={handleChange}
+                    className={styles['input']}
+                    variant="soft"
+                />
+                </div>
+                <div className={styles['button-container']}>
+                <Button variant="solid"  sx={{margin: '5px'}} className={styles['button']} type="submit">
+                    Login
+                </Button>
+                <Button variant="soft" sx={{margin: '5px'}} className={styles['button']}>Não tenho conta</Button>
+                </div>
+            </form>
+            </Card>
+        </div>
     );
   }
   
