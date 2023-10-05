@@ -5,7 +5,7 @@ import SignUp from "./components/Page/Sign/cadastro.tsx";
 import SignIn from "./components/Page/Sign/login.tsx";
 import "./index.css";
 import { Landing } from "./Page/Landing/index.tsx";
-
+import { Register } from "./Page/register/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <SignIn />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")!).render(
