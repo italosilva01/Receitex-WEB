@@ -3,55 +3,57 @@
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
   align-items: center; /* Centraliza verticalmente */
-  height: 100vh; /* Define a altura do contêiner para preencher a altura da tela */
+  height: calc(
+    100vh - 50px
+  ); /* Define a altura do contêiner para preencher a altura da tela */
+  margin: auto;
 }
 
 .signup-container {
-    padding: 20px;
-    border: 1px solid #ccc;
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: left;
-    border-radius: 10px;
-  }
-  
-  .signup-title {
-    font-family: 'Roboto', sans-serif; 
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .input-field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  .input-label {
-    color: #fff;
-    margin-bottom: 5px;
-  }
-  
-  .input {
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  
-  .button-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .button {
-    background-color: #fff;
-    color: #007bff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 10px;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
+  padding: 20px;
+  border: 1px solid #ccc;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+  border-radius: 10px;
+}
+
+.signup-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input-label {
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  background-color: #fff;
+  color: #007bff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
