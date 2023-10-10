@@ -1,6 +1,5 @@
 import { Grid, Typography } from "@mui/joy";
-import Saly from "../../../../assets/Saly-22.png";
-import Onda from "../../../../assets/onda.svg";
+import Saly from "../../../../assets/Saly.png";
 import style from "./Content.module.css";
 
 export const Content = () => {
@@ -12,8 +11,6 @@ export const Content = () => {
         </Typography>
       </div>
       <div className={style.containerImgs}>
-        <img src={Onda} className={style.imgOnda} />
-
         <img src={Saly} className={style.imgSally} />
       </div>
     </Grid>
