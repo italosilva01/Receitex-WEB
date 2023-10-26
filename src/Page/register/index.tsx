@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { HeaderDefault } from "../../components/HeaderCreateAccount/HeaderDefault";
 
 export const Register = () => {
-
+  const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
 
   const handleSave = async () => {
@@ -18,7 +18,7 @@ export const Register = () => {
     const emissao = dataAtual.toISOString();
 
     const data = {
-      titulo: '',
+      titulo,
       descricao,
       emissao,
       vencimento: '',
@@ -53,8 +53,21 @@ export const Register = () => {
       <Typography level="h3" sx={{ml: "20rem", mt:"1rem", color: '#ffffff'}}>Crie sua receita para</Typography>
       <Typography sx={{ml: "20rem", color: '#ffffff'}}>Rodolfo</Typography>
       </Sheet>
+      <Grid ml="13rem">
+          <Box  style={{ width: '5%', borderRadius: '6px', padding: '10px', marginBottom: '10px', marginTop: '40px' }}
+          sx={{ p: 1, backgroundColor: 'blue', borderRadius: '6px', color: 'white', textAlign: 'center' }}>
+            Título
+          </Box>
+          <input
+            type="text"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+            placeholder="Digite o título aqui"
+            style={{ width: '20%', borderRadius: '6px', padding: '10px', marginBottom: '10px' }}
+          />
+        </Grid>
       <Grid container direction="row" justifyContent="space-between" alignItems="center" mt={10} mb={10}>
-        <Grid ml="18rem">
+        <Grid ml="13rem">
             <Box sx={{ p: 1, backgroundColor: '#f9f9f9', borderRadius: '10px'}}>
                 <ButtonGroup aria-label="outlined primary button group">
                 <IconButton> <FormatBold/></IconButton>
