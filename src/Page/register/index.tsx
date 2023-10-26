@@ -3,10 +3,49 @@ import Sheet from '@mui/joy/Sheet';
 import Textarea from '@mui/joy/Textarea';
 import Typography from '@mui/joy/Typography';
 import {FormatItalic, FormatBold, FormatUnderlined} from '@mui/icons-material';
+import { useState } from 'react';
 
 import { HeaderDefault } from "../../components/HeaderCreateAccount/HeaderDefault";
 
 export const Register = () => {
+
+  const [descricao, setDescricao] = useState('');
+
+  const handleSave = async () => {
+
+    const dataAtual = new Date();
+    dataAtual.setUTCHours(dataAtual.getUTCHours() - 3);
+    const emissao = dataAtual.toISOString();
+
+    const data = {
+      titulo: '',
+      descricao,
+      emissao,
+      vencimento: '',
+      nome_medico: '',
+      nome_paciente: '',
+    };
+
+    try {
+      const response = await fetch('http://localhost:8081/receita', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        console.log('Receita criada com sucesso');
+      } else {
+        console.error('Erro ao criar a receita');
+      }
+    } catch (error) {
+      console.error('Erro ao criar a receita:', error);
+    }
+  };
+
+
   return (
     <Grid container direction="column">
       <HeaderDefault />
@@ -25,12 +64,13 @@ export const Register = () => {
             </Box>
         </Grid >
         <Grid mr="18rem">
-        <Button sx={{width: "20rem"}} onClick={function () {}}>Salvar</Button>
+        <Button sx={{width: "20rem"}} onClick={handleSave}>Salvar</Button>
         </Grid>
       </Grid>
       <Textarea
         sx={{ borderRadius: '6px', ml:"auto", mr:"auto", mb: "10rem", height: '50rem', width:'80rem'}}
         defaultValue="Digite a receita neste campo"
+        onChange={(e) => setDescricao(e.target.value)}
       />
       
     </Grid>
