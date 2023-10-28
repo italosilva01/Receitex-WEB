@@ -4,12 +4,9 @@ import Textarea from '@mui/joy/Textarea';
 import Typography from '@mui/joy/Typography';
 import {FormatItalic, FormatBold, FormatUnderlined} from '@mui/icons-material';
 
-import { HeaderDefault } from "../../components/HeaderCreateAccount/HeaderDefault";
-
 export const Register = () => {
   return (
     <Grid container direction="column">
-      <HeaderDefault />
       <Sheet variant="solid" color="primary" sx={{width: "100vw", height: "5rem"}}>
       <Typography level="h3" sx={{ml: "20rem", mt:"1rem", color: '#ffffff'}}>Crie sua receita para</Typography>
       <Typography sx={{ml: "20rem", color: '#ffffff'}}>Rodolfo</Typography>
