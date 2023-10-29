@@ -10,30 +10,49 @@ import { useState } from 'react';
 export const Register = () => {
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
-  const [tipoDocumento, setTipoDocumento] = useState('Receita');;
+  const [tipoDocumento, setTipoDocumento] = useState('Receita');
+  const [quantidade, setQuantidade] = useState('');
+  const [prazo, setPrazo] = useState('dias');
 
   const handleDocumentSelection = (event) => {
     setTipoDocumento(event.target.value);
   }
 
-  const handleVencimento = (event) => {
-    
+  const handleVencimento = (value) => {
+    setPrazo(value.target.textContent);
   }
 
-  
-  
+  const setVencimento = () => {
+
+  }
+
 
   const handleSave = async () => {
 
     const dataAtual = new Date();
     dataAtual.setUTCHours(dataAtual.getUTCHours() - 3);
+    const vencimento = new Date(dataAtual);
     const emissao = dataAtual.toISOString();
+    let quantidadeFinal = 0;
+ 
+    if(prazo == 'Meses'){
+      quantidadeFinal = parseInt(quantidade)*30;
+    }
+    else if(prazo == 'Anos'){
+      quantidadeFinal = parseInt(quantidade)*365;
+    }
+    else{
+      quantidadeFinal = parseInt(quantidade);
+    }
+
+    vencimento.setDate(vencimento.getDate() + quantidadeFinal);
+    vencimento.toISOString();
 
     const data = {
       titulo,
       descricao,
       emissao,
-      vencimento: '',
+      vencimento,
       nome_medico: '',
       nome_paciente: '',
     };
@@ -100,8 +119,8 @@ export const Register = () => {
             <Grid>
               <input
                 type="text"
-                value={titulo}
-                onChange={(e) => setTitulo(e.target.value)}
+                value={quantidade}
+                onChange={(e) => setQuantidade(e.target.value)}
                 placeholder="quantidade"
                 style={{ width: '50%', borderRadius: '6px', padding: '10px', marginBottom: '10px' }}
               />
