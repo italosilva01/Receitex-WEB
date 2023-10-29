@@ -7,8 +7,8 @@ export const HeaderCreateAccount = () => {
   const navigate = useNavigate();
 
   return (
-    <Grid container className={styles.container}>
-      <Grid item alignItems="center" className={styles.content}>
+    <Grid container component="div" className={styles.container}>
+      <Grid component="div" alignItems="center" className={styles.content}>
         <Logo />
         <Button
           onClick={() => {
