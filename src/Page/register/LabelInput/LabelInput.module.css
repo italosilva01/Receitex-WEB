@@ -1,0 +1,10 @@
+.label {
+  display: block;
+  width: fit-content;
+  color: #fff !important;
+  background: var(--joy-palette-primary-500, #0B6BCB);
+  text-align: center;
+  padding: 3px 15px;
+  border-radius: 6px;
+  font-weight: 600;
+}
