@@ -47,7 +47,15 @@ const NumericFormatAdapter = forwardRef<NumericFormatProps, ICustomPropsReactNum
 );
 
 export const Register = () => {
+<<<<<<< HEAD
   const [textType, setTextType] = useState<MarkdownTextType>("default");
+=======
+  const [titulo, setTitulo] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [tipoDocumento, setTipoDocumento] = useState('Receita');
+  const [quantidade, setQuantidade] = useState('');
+  const [prazo, setPrazo] = useState('dias');
+>>>>>>> main
 
   const {
     register,
@@ -66,6 +74,7 @@ export const Register = () => {
     },
   });
 
+<<<<<<< HEAD
   const parseToIntValueOfValidUntil = () => {
     const typeValidUntil = watch("typeValidUntil");
     const valueValidUntil = watch("valueValidUntil");
@@ -75,6 +84,63 @@ export const Register = () => {
       return parseInt(valueValidUntil) * 365;
     } else {
       return parseInt(valueValidUntil);
+=======
+  const handleVencimento = (value) => {
+    setPrazo(value.target.textContent);
+  }
+
+  const setVencimento = () => {
+
+  }
+
+
+  const handleSave = async () => {
+
+    const dataAtual = new Date();
+    dataAtual.setUTCHours(dataAtual.getUTCHours() - 3);
+    const vencimento = new Date(dataAtual);
+    const emissao = dataAtual.toISOString();
+    let quantidadeFinal = 0;
+ 
+    if(prazo == 'Meses'){
+      quantidadeFinal = parseInt(quantidade)*30;
+    }
+    else if(prazo == 'Anos'){
+      quantidadeFinal = parseInt(quantidade)*365;
+    }
+    else{
+      quantidadeFinal = parseInt(quantidade);
+    }
+
+    vencimento.setDate(vencimento.getDate() + quantidadeFinal);
+    vencimento.toISOString();
+
+    const data = {
+      titulo,
+      descricao,
+      emissao,
+      vencimento,
+      nome_medico: '',
+      nome_paciente: '',
+    };
+
+    try {
+      const response = await fetch('http://localhost:8081/receita', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        console.log('Receita criada com sucesso');
+      } else {
+        console.error('Erro ao criar a receita');
+      }
+    } catch (error) {
+      console.error('Erro ao criar a receita:', error);
+>>>>>>> main
     }
   };
 
