@@ -1,0 +1,3 @@
+.textArea::before {
+    box-shadow: none !important;
+}
