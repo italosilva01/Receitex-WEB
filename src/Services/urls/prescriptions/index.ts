@@ -6,7 +6,7 @@ export const prescriptions = {
     return apiInstance.get("/receita");
   },
   getOne: (id: string) => {
-    return apiInstance.get<IPrescriptionCreateData>(`/receita/${id}`);
+    return apiInstance.get<IPrescriptionCreateData>(`/receita?id=${id}`);
   },
   create: (data: IPrescriptionCreateData) => {
     return apiInstance.post("/receita", data);
