@@ -34,12 +34,17 @@ export const Prescription = () => {
           </Grid>
         </Grid>
       </Sheet>
-
+    
       <Grid container justifyContent="center">
         <Grid xs={12} md={8} mt={4}>
           <FormControl>
             <Textarea
-              value={data?.data?.titulo || ""}
+              value={"Médico: " + data?.data?.nome_medico + "                    " +
+              "Paciente: " + data?.data?.nome_paciente + "\n\n" +
+               data?.data?.descricao + "\n\n" + 
+              "Emissão: " + (data?.data?.emissao ? new Date(data?.data?.emissao).toLocaleDateString() : "")  + "\n" +
+              "Vencimento: " +  (data?.data?.emissao ? new Date(data?.data?.vencimento).toLocaleDateString() : "")
+            }
               slotProps={{
                 root: {
                   className: styles.textAreaRoot,
