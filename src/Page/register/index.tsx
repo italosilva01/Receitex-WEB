@@ -115,7 +115,7 @@ export const Register = () => {
         reset();
         console.log("Receita criada com sucesso");
         console.log(data);
-        navigate(`/prescription/${data.data.id}`);
+        navigate(`/certificate/${data.data.id}`);
       },
       onError: (error) => {
         console.log("Erro ao criar receita");
@@ -133,7 +133,7 @@ export const Register = () => {
         reset();
         console.log("Receita criada com sucesso");
         console.log(data);
-        navigate(`/prescription/${data.data.id}`);
+        navigate(`/request/${data.data.id}`);
       },
       onError: (error) => {
         console.log("Erro ao criar receita");

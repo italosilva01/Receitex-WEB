@@ -20,12 +20,18 @@ export const prescriptions = {
 };
 
 export const certificates = {
+  getOne: (id: string) => {
+    return apiInstance.get<ICertificateCreateData>(`/atestado?id=${id}`);
+  },
   create: (data: ICertificateCreateData) => {
     return apiInstance.post("/atestado", data);
   }
 };
 
 export const requests = {
+  getOne: (id: string) => {
+    return apiInstance.get<IRequestCreateData>(`/requisicao?id=${id}`);
+  },
   create: (data: IRequestCreateData) => {
     return apiInstance.post("/requisicao", data);
   }
