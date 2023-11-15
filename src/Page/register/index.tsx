@@ -22,7 +22,7 @@ import { Controller, useForm } from "react-hook-form";
 import { ICustomPropsReactNumer, IPrescriptionFormData, MarkdownTextType } from "./types";
 import { api } from "../../Services/api";
 import { useMutation } from "react-query";
-import { IPrescriptionCreateData } from "../../Services/urls/prescriptions/types";
+import { IPrescriptionCreateData, IRequestCreateData } from "../../Services/urls/prescriptions/types";
 import { redirect, useNavigate } from "react-router-dom";
 
 const NumericFormatAdapter = forwardRef<NumericFormatProps, ICustomPropsReactNumer>(
@@ -88,8 +88,27 @@ export const Register = () => {
   };
 
   const prescriptionMutation = useMutation(
+    
     (data: IPrescriptionCreateData) => {
       return api.prescriptions.create(data);
+    },
+    {
+      onSuccess: (data) => {
+        reset();
+        console.log("Receita criada com sucesso");
+        console.log(data);
+        navigate(`/prescription/${data.data.id}`);
+      },
+      onError: (error) => {
+        console.log("Erro ao criar receita");
+        console.log(error);
+      },
+    }
+  );
+
+  const certificateMutation = useMutation(
+    (data: IPrescriptionCreateData) => {
+      return api.certificates.create(data);
     },
     {
       onSuccess: (data) => {
@@ -111,16 +130,44 @@ export const Register = () => {
     const emissao = dataAtual.toISOString();
     const vencimento = getValidUntilDateAsString();
 
-    const data: IPrescriptionCreateData = {
-      titulo: formData.title,
-      descricao: formData.description,
-      emissao: emissao,
-      vencimento: vencimento,
-      nome_medico: "Médico da Silva",
-      nome_paciente: "Joãozinho do Pneu",
-    };
+    console.log("formData.documentType: " + formData.documentType);
+    if(formData.documentType == "receita" || formData.documentType == "atestado"){
+      const data: IPrescriptionCreateData = {
+        titulo: formData.title,
+        descricao: formData.description,
+        emissao: emissao,
+        vencimento: vencimento,
+        nome_medico: "Médico da Silva",
+        nome_paciente: "Joãozinho do Pneu",
+      };
 
-    prescriptionMutation.mutate(data);
+      if(formData.documentType == "receita"){
+        prescriptionMutation.mutate(data);
+      }
+      else{
+        certificateMutation.mutate(data);
+      }
+    }
+    else if(formData.documentType == "requisicao"){
+      const data: IRequestCreateData = {
+        titulo: formData.title,
+        descricao: formData.description,
+        emissao: emissao,
+        nome_medico: "Médico da Silva",
+        nome_paciente: "Joãozinho do Pneu",
+      };
+    }
+
+    // const data: IPrescriptionCreateData = {
+    //   titulo: formData.title,
+    //   descricao: formData.description,
+    //   emissao: emissao,
+    //   vencimento: vencimento,
+    //   nome_medico: "Médico da Silva",
+    //   nome_paciente: "Joãozinho do Pneu",
+    // };
+
+    // prescriptionMutation.mutate(data);
   };
 
   const displayInputError = (message: string | undefined) => {

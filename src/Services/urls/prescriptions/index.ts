@@ -18,3 +18,9 @@ export const prescriptions = {
     return apiInstance.delete(`/receita/${id}`);
   },
 };
+
+export const certificates = {
+  create: (data: IPrescriptionCreateData) => {
+    return apiInstance.post("/atestado", data);
+  }
+};
