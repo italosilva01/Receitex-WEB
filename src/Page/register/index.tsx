@@ -22,7 +22,7 @@ import { Controller, useForm } from "react-hook-form";
 import { ICustomPropsReactNumer, IPrescriptionFormData, MarkdownTextType } from "./types";
 import { api } from "../../Services/api";
 import { useMutation } from "react-query";
-import { IPrescriptionCreateData, IRequestCreateData } from "../../Services/urls/prescriptions/types";
+import { IPrescriptionCreateData, IRequestCreateData, ICertificateCreateData } from "../../Services/urls/prescriptions/types";
 import { redirect, useNavigate } from "react-router-dom";
 
 const NumericFormatAdapter = forwardRef<NumericFormatProps, ICustomPropsReactNumer>(
@@ -107,7 +107,25 @@ export const Register = () => {
   );
 
   const certificateMutation = useMutation(
-    (data: IPrescriptionCreateData) => {
+    (data: ICertificateCreateData) => {
+      return api.certificates.create(data);
+    },
+    {
+      onSuccess: (data) => {
+        reset();
+        console.log("Receita criada com sucesso");
+        console.log(data);
+        navigate(`/prescription/${data.data.id}`);
+      },
+      onError: (error) => {
+        console.log("Erro ao criar receita");
+        console.log(error);
+      },
+    }
+  );
+
+  const requestMutation = useMutation(
+    (data: IRequestCreateData) => {
       return api.certificates.create(data);
     },
     {
@@ -131,8 +149,20 @@ export const Register = () => {
     const vencimento = getValidUntilDateAsString();
 
     console.log("formData.documentType: " + formData.documentType);
-    if(formData.documentType == "receita" || formData.documentType == "atestado"){
+    if(formData.documentType == "receita"){
       const data: IPrescriptionCreateData = {
+        titulo: formData.title,
+        descricao: formData.description,
+        emissao: emissao,
+        vencimento: vencimento,
+        nome_medico: "Médico da Silva",
+        nome_paciente: "Joãozinho do Pneu",
+      };      
+      prescriptionMutation.mutate(data);
+      
+    }
+    else if(formData.documentType == "atestado"){
+      const data: ICertificateCreateData = {
         titulo: formData.title,
         descricao: formData.description,
         emissao: emissao,
@@ -141,12 +171,7 @@ export const Register = () => {
         nome_paciente: "Joãozinho do Pneu",
       };
 
-      if(formData.documentType == "receita"){
-        prescriptionMutation.mutate(data);
-      }
-      else{
-        certificateMutation.mutate(data);
-      }
+      certificateMutation.mutate(data);
     }
     else if(formData.documentType == "requisicao"){
       const data: IRequestCreateData = {
@@ -156,18 +181,9 @@ export const Register = () => {
         nome_medico: "Médico da Silva",
         nome_paciente: "Joãozinho do Pneu",
       };
+
+      requestMutation.mutate(data);
     }
-
-    // const data: IPrescriptionCreateData = {
-    //   titulo: formData.title,
-    //   descricao: formData.description,
-    //   emissao: emissao,
-    //   vencimento: vencimento,
-    //   nome_medico: "Médico da Silva",
-    //   nome_paciente: "Joãozinho do Pneu",
-    // };
-
-    // prescriptionMutation.mutate(data);
   };
 
   const displayInputError = (message: string | undefined) => {

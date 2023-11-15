@@ -1,5 +1,5 @@
 import { apiInstance } from "../../apiInstance";
-import { IPrescriptionCreateData } from "./types";
+import { IPrescriptionCreateData, ICertificateCreateData, IRequestCreateData } from "./types";
 
 export const prescriptions = {
   getAll: () => {
@@ -20,7 +20,13 @@ export const prescriptions = {
 };
 
 export const certificates = {
-  create: (data: IPrescriptionCreateData) => {
+  create: (data: ICertificateCreateData) => {
     return apiInstance.post("/atestado", data);
+  }
+};
+
+export const requests = {
+  create: (data: IRequestCreateData) => {
+    return apiInstance.post("/requisicao", data);
   }
 };
