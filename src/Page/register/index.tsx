@@ -23,6 +23,7 @@ import { ICustomPropsReactNumer, IPrescriptionFormData, MarkdownTextType } from 
 import { api } from "../../Services/api";
 import { useMutation } from "react-query";
 import { IPrescriptionCreateData } from "../../Services/urls/prescriptions/types";
+import { redirect, useNavigate } from "react-router-dom";
 
 const NumericFormatAdapter = forwardRef<NumericFormatProps, ICustomPropsReactNumer>(
   function NumericFormatAdapter(props, ref) {
@@ -48,6 +49,7 @@ const NumericFormatAdapter = forwardRef<NumericFormatProps, ICustomPropsReactNum
 
 export const Register = () => {
   const [textType, setTextType] = useState<MarkdownTextType>("default");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -94,6 +96,7 @@ export const Register = () => {
         reset();
         console.log("Receita criada com sucesso");
         console.log(data);
+        navigate(`/prescription/${data.data.id}`);
       },
       onError: (error) => {
         console.log("Erro ao criar receita");
@@ -113,8 +116,8 @@ export const Register = () => {
       descricao: formData.description,
       emissao: emissao,
       vencimento: vencimento,
-      nome_medico: "",
-      nome_paciente: "",
+      nome_medico: "Médico da Silva",
+      nome_paciente: "Joãozinho do Pneu",
     };
 
     prescriptionMutation.mutate(data);
@@ -132,6 +135,7 @@ export const Register = () => {
   const genericErrors = {
     required: "Campo obrigatório",
   };
+
 
   return (
     <Grid container direction="column">
