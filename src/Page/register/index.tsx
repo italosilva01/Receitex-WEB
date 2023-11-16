@@ -248,7 +248,8 @@ export const Register = () => {
                 ></Controller>
               </Grid>
               <Grid xs={12} md={6}>
-                <LabelInput>Válido por</LabelInput>
+              {watch("documentType") !== "requisicao" && (<LabelInput>Válido por</LabelInput>)}
+                {watch("documentType") !== "requisicao" && (
                 <div>
                   <div className={styles.validUnitl}>
                     <FormControl error={Boolean(errors.valueValidUntil?.message)}>
@@ -285,6 +286,7 @@ export const Register = () => {
                     {displayInputError(errors.valueValidUntil?.message)}
                   </FormControl>
                 </div>
+                )}
               </Grid>
             </Grid>
             <Grid container justifyContent="space-between" spacing={8}>
