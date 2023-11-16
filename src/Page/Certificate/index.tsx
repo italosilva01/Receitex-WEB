@@ -10,7 +10,7 @@ import { useParams } from "react-router";
 
 export const Certificate = () => {
   const params = useParams<{ id: string }>();
-  const { isLoading, data } = useQuery("certiicate", () =>
+  const { isLoading, data } = useQuery("certificate", () =>
     api.certificates.getOne(params.id ?? "")
   );
 

@@ -126,7 +126,7 @@ export const Register = () => {
 
   const requestMutation = useMutation(
     (data: IRequestCreateData) => {
-      return api.certificates.create(data);
+      return api.requests.create(data);
     },
     {
       onSuccess: (data) => {

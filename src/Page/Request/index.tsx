@@ -42,8 +42,7 @@ export const Request = () => {
               value={"Médico: " + data?.data?.nome_medico + "                    " +
               "Paciente: " + data?.data?.nome_paciente + "\n\n" +
                data?.data?.descricao + "\n\n" + 
-              "Emissão: " + (data?.data?.emissao ? new Date(data?.data?.emissao).toLocaleDateString() : "")  + "\n" +
-              "Vencimento: " +  (data?.data?.emissao ? new Date(data?.data?.vencimento).toLocaleDateString() : "")
+              "Emissão: " + (data?.data?.emissao ? new Date(data?.data?.emissao).toLocaleDateString() : "")
             }
               slotProps={{
                 root: {
