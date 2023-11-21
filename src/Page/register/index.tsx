@@ -146,10 +146,10 @@ export const Register = () => {
     const dataAtual = new Date();
     dataAtual.setUTCHours(dataAtual.getUTCHours() - 3);
     const emissao = dataAtual.toISOString();
-    const vencimento = getValidUntilDateAsString();
 
     console.log("formData.documentType: " + formData.documentType);
     if(formData.documentType == "receita"){
+      const vencimento = getValidUntilDateAsString();
       const data: IPrescriptionCreateData = {
         titulo: formData.title,
         descricao: formData.description,
@@ -162,6 +162,7 @@ export const Register = () => {
       
     }
     else if(formData.documentType == "atestado"){
+      const vencimento = getValidUntilDateAsString();
       const data: ICertificateCreateData = {
         titulo: formData.title,
         descricao: formData.description,
@@ -174,6 +175,7 @@ export const Register = () => {
       certificateMutation.mutate(data);
     }
     else if(formData.documentType == "requisicao"){
+      console.log("é uma requisicao");
       const data: IRequestCreateData = {
         titulo: formData.title,
         descricao: formData.description,
