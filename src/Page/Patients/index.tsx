@@ -96,16 +96,19 @@ export const Patients = () => {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', margin: 'auto' }}>
+      <Box sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper', margin: 'auto' }}>
         <nav aria-label="main mailbox folders">
             <List>
             <ListItem disablePadding>
-                <ListItemButton>
+                <ListItem>
                 <ListItemIcon>
                     <PersonIcon />
                 </ListItemIcon>
                 <ListItemText primary="Marcos dos Santos" />
+                <ListItemButton sx={{ bgcolor: '#0000FF'}}>
+                    <ListItemText sx={{ color: 'background.paper', margin: 'auto'}} primary="Nova Receita" />
                 </ListItemButton>
+                </ListItem>
             </ListItem>
             </List>
         </nav>
