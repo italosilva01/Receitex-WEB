@@ -30,11 +30,12 @@ import { ICustomPropsReactNumer, IPrescriptionFormData, MarkdownTextType } from 
 import { api } from "../../Services/api";
 import { useMutation, useQuery } from "react-query";
 import { IPrescriptionCreateData } from "../../Services/urls/prescriptions/types";
-import { useParams } from 'react-router-dom';
+import { useParams, redirect, useNavigate } from 'react-router-dom';
 
 
 export const Patients = () => {
   const params = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { isLoading, data } = useQuery("patients", () =>
     api.patients.geAllFromDoctor(params.id ?? "")
   );
@@ -42,6 +43,7 @@ export const Patients = () => {
   const handleButtonClick = () => {
     // Lógica a ser executada quando o botão é clicado
     console.log(`Data retornado ${data}`);
+    navigate(`/register`);
   };
 
     const Search = styled('div')(({ theme }) => ({
