@@ -14,12 +14,36 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
+
+import { FormControl, Grid, Skeleton } from "@mui/joy";
+import Sheet from "@mui/joy/Sheet";
+import Textarea from "@mui/joy/Textarea";
+import Select from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
+import { FormatItalic, FormatBold, FormatUnderlined, InfoOutlined } from "@mui/icons-material";
+import { forwardRef, useState } from "react";
+import styles from "./Register.module.css";
+import LabelInput from "./LabelInput";
+import { NumericFormat, NumericFormatProps } from "react-number-format";
+import { Controller, useForm } from "react-hook-form";
+import { ICustomPropsReactNumer, IPrescriptionFormData, MarkdownTextType } from "./types";
+import { api } from "../../Services/api";
+import { useMutation, useQuery } from "react-query";
+import { IPrescriptionCreateData } from "../../Services/urls/prescriptions/types";
+import { useParams } from 'react-router-dom';
 
 
 export const Patients = () => {
+  const params = useParams<{ id: string }>();
+  const { isLoading, data } = useQuery("patients", () =>
+    api.patients.geAllFromDoctor(params.id ?? "")
+  );
+
+  const handleButtonClick = () => {
+    // Lógica a ser executada quando o botão é clicado
+    console.log(`Data retornado ${data}`);
+  };
+
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -99,18 +123,22 @@ export const Patients = () => {
       <Box sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper', margin: 'auto' }}>
         <nav aria-label="main mailbox folders">
             <List>
-            <ListItem disablePadding>
-                <ListItem>
-                <ListItemIcon>
-                    <PersonIcon />
-                </ListItemIcon>
-                <ListItemText primary="Marcos dos Santos" />
-                <ListItemButton sx={{ bgcolor: '#0000FF'}}>
-                    <ListItemText sx={{ color: 'background.paper', margin: 'auto'}} primary="Nova Receita" />
-                </ListItemButton>
-                </ListItem>
-            </ListItem>
-            </List>
+              {/* {isLoading && <p>Loading...</p>}
+                {data?.data?.map((patient) => ( */}
+                  {/* <ListItem key={patient.id} disablePadding> */}
+                    <ListItem>
+                      <ListItemIcon>
+                        <PersonIcon />
+                      </ListItemIcon>
+                      {/* <ListItemText primary={patient.first_name} /> */}
+                      <ListItemButton sx={{ bgcolor: '#0000FF' }} 
+                      onClick={() => handleButtonClick()}>
+                        <ListItemText sx={{ color: 'background.paper', margin: 'auto' }} primary="Nova Receita" />
+                      </ListItemButton>
+                    </ListItem>
+                  {/* </ListItem> */}
+                {/* ))} */}
+              </List>
         </nav>
       </Box>
     </Box>

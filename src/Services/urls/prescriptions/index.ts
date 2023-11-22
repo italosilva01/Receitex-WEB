@@ -18,3 +18,6 @@ export const prescriptions = {
     return apiInstance.delete(`/receita/${id}`);
   },
 };
+
+
+
