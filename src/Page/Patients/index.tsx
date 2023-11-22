@@ -122,23 +122,25 @@ export const Patients = () => {
 
       <Box sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper', margin: 'auto' }}>
         <nav aria-label="main mailbox folders">
-            <List>
-              {/* {isLoading && <p>Loading...</p>}
-                {data?.data?.map((patient) => ( */}
-                  {/* <ListItem key={patient.id} disablePadding> */}
-                    <ListItem>
-                      <ListItemIcon>
-                        <PersonIcon />
-                      </ListItemIcon>
-                      {/* <ListItemText primary={patient.first_name} /> */}
-                      <ListItemButton sx={{ bgcolor: '#0000FF' }} 
-                      onClick={() => handleButtonClick()}>
-                        <ListItemText sx={{ color: 'background.paper', margin: 'auto' }} primary="Nova Receita" />
-                      </ListItemButton>
-                    </ListItem>
-                  {/* </ListItem> */}
-                {/* ))} */}
-              </List>
+        <List>
+      {isLoading && <p>Loading...</p>}
+      {data?.data?.map((patient) => (
+        <ListItem key={patient.id} disablePadding>
+          <ListItem>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary={patient.first_name} />
+            <ListItemButton
+              sx={{ bgcolor: '#0000FF' }}
+              onClick={() => handleButtonClick()}
+            >
+              <ListItemText sx={{ color: 'background.paper', margin: 'auto' }} primary="Nova Receita" />
+            </ListItemButton>
+          </ListItem>
+        </ListItem>
+      ))}
+    </List>   
         </nav>
       </Box>
     </Box>
