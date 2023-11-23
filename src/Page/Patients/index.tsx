@@ -129,7 +129,7 @@ export const Patients = () => {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper', margin: 'auto', marginTop: '0px'}}>
+      <Box sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper', margin: 'auto', marginTop: '30px'}}>
         <nav aria-label="main mailbox folders">
         <List>
       {isLoading && <p>Loading...</p>}
