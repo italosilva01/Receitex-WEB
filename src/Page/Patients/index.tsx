@@ -40,6 +40,13 @@ export const Patients = () => {
     api.patients.geAllFromDoctor(params.id ?? "")
   );
 
+  const staticData = [
+    { id: '4f6d11c7-82cf-4d6a-a0c3-56a1f79149d1', first_name: 'Fernanda', last_name: 'Gonçalves' },
+    { id: '9bfb08e7-3ae2-4b8e-b5b5-24f346b30972', first_name: 'Michelle', last_name: 'Teixeira'},
+    { id: 'a46d25c1-ec22-4d3b-b9a7-ec5ab3ac2df7', first_name: 'Marcosuel', last_name: 'Filho' },
+    { id: '2b0e5fad-d282-4fc4-8c2e-fda4fe27a7b4', first_name: 'Italo', last_name: ''},
+  ];
+
   const handleButtonClick = () => {
     // Lógica a ser executada quando o botão é clicado
     console.log(`Data retornado ${data}`);
@@ -122,22 +129,22 @@ export const Patients = () => {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper', margin: 'auto' }}>
+      <Box sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper', margin: 'auto', marginTop: '0px'}}>
         <nav aria-label="main mailbox folders">
         <List>
       {isLoading && <p>Loading...</p>}
-      {data?.data?.map((patient) => (
+      {staticData.map((patient) => (
         <ListItem key={patient.id} disablePadding>
           <ListItem>
             <ListItemIcon>
               <PersonIcon />
             </ListItemIcon>
-            <ListItemText primary={patient.first_name} />
-            <ListItemButton
-              sx={{ bgcolor: '#0000FF' }}
+            <ListItemText primary={patient.first_name + " " + patient.last_name} />
+            <ListItemButton 
+              sx={{ bgcolor: '#1664c9', maxWidth: '130px'}}
               onClick={() => handleButtonClick()}
             >
-              <ListItemText sx={{ color: 'background.paper', margin: 'auto' }} primary="Nova Receita" />
+              <ListItemText sx={{ color: 'background.paper', margin: 'auto'}} primary="Nova Receita" />
             </ListItemButton>
           </ListItem>
         </ListItem>
