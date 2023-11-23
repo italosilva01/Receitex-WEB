@@ -36,3 +36,4 @@ export const requests = {
     return apiInstance.post("/requisicao", data);
   }
 };
+
