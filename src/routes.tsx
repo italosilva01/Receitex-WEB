@@ -1,4 +1,4 @@
-import SignUp from "./components/Page/Sign/cadastro.tsx";
+import { SignUp } from "./components/Page/Sign/cadastro.tsx";
 import SignIn from "./components/Page/Sign/login.tsx";
 import LandingPage from "./Page/LandingPage/index.tsx";
 import { Prescription } from "./Page/Prescription/index.tsx";

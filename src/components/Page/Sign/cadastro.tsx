@@ -1,43 +1,40 @@
-import { useState } from "react";
+// import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import styles from "./SignUp.module.css";
 import Input from "@mui/joy/Input";
 import Card from "@mui/joy/Card";
 import Button from "@mui/joy/Button";
 import { redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { HeaderCreateAccount } from "../../HeaderCreateAccount/HeaderCreateAccount";
 import Grid from "@mui/joy/Grid";
+import zod from "zod";
+
+import { api } from "../../../Services/api";
+
+const RegisterUserScheme = zod.object({
+  firstname: zod.string().email(),
+  lastname: zod.string(),
+});
+
+type RegisterUser = zod.infer<typeof RegisterUserScheme>;
 
 function SignUp() {
-  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    senha: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    // e.preventDefault();
+  const registerUserMedic: SubmitHandler<RegisterUser> = async (
+    e: RegisterUser
+  ) => {
     console.log(e);
-    navigate("/"); // Lógica para enviar os dados do formulário para o servidor ou realizar outras ações
-  };
 
+    const response = await api.medics.registerMedic({ ...e, role: "DOCTOR" });
+    console.log(response);
+  };
   const renderSignIn = () => {
     return redirect("/signin");
   };
 
   return (
     <Grid container sx={{ flexGrow: 1 }}>
-      <HeaderCreateAccount />
       <div className={styles["center-container"]}>
         <Card
           variant="solid"
@@ -47,20 +44,16 @@ function SignUp() {
           className={styles["signup-container"]}
         >
           <h2 className={styles["signup-title"]}>Criar conta</h2>
-          <form method="POST" onSubmit={handleSubmit}>
+          <form method="POST" onSubmit={handleSubmit(registerUserMedic)}>
             <div className={styles["input-field"]}>
               <label htmlFor="email" className={styles["input-label"]}>
                 Email:
               </label>
               <Input
                 size="sm"
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
                 className={styles["input"]}
                 variant="soft"
+                {...register("firstname", { required: true })}
               />
             </div>
             <div className={styles["input-field"]}>
@@ -69,13 +62,9 @@ function SignUp() {
               </label>
               <Input
                 size="sm"
-                type="password"
-                id="senha"
-                name="senha"
-                value={formData.senha}
-                onChange={handleChange}
                 className={styles["input"]}
                 variant="soft"
+                {...register("lastname", { required: true })}
               />
             </div>
             <div className={styles["button-container"]}>
@@ -105,4 +94,5 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export { SignUp };
+export type { RegisterUser };
