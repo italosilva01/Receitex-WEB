@@ -3,15 +3,15 @@ import Sheet from "@mui/joy/Sheet";
 import Textarea from "@mui/joy/Textarea";
 import Typography from "@mui/joy/Typography";
 import styles from "../Register/Register.module.css";
-import stylesPrescription from "./Prescription.module.css";
+import stylesPrescription from "./Certificate.module.css";
 import { useQuery } from "react-query";
 import { api } from "../../Services/api";
 import { useParams } from "react-router";
 
-export const Prescription = () => {
+export const Certificate = () => {
   const params = useParams<{ id: string }>();
-  const { isLoading, data } = useQuery("prescription", () =>
-    api.prescriptions.getOne(params.id ?? "")
+  const { isLoading, data } = useQuery("certificate", () =>
+    api.certificates.getOne(params.id ?? "")
   );
 
   return (
