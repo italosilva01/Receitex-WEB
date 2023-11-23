@@ -1,6 +1,11 @@
-import { prescriptions } from './urls/prescriptions/index';
+
 import { patients } from './urls/patients/index';
+import { prescriptions, certificates, requests } from './urls/prescriptions/index';
+
 export const api = {
-    prescriptions, 
+    prescriptions,
+    certificates,
+    requests,
     patients
-}
+};
+

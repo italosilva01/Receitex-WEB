@@ -3,15 +3,15 @@ import Sheet from "@mui/joy/Sheet";
 import Textarea from "@mui/joy/Textarea";
 import Typography from "@mui/joy/Typography";
 import styles from "../Register/Register.module.css";
-import stylesPrescription from "./Prescription.module.css";
+import stylesPrescription from "./Request.module.css";
 import { useQuery } from "react-query";
 import { api } from "../../Services/api";
 import { useParams } from "react-router";
 
-export const Prescription = () => {
+export const Request = () => {
   const params = useParams<{ id: string }>();
-  const { isLoading, data } = useQuery("prescription", () =>
-    api.prescriptions.getOne(params.id ?? "")
+  const { isLoading, data } = useQuery("request", () =>
+    api.requests.getOne(params.id ?? "")
   );
 
   return (
@@ -42,8 +42,7 @@ export const Prescription = () => {
               value={"Médico: " + data?.data?.nome_medico + "                    " +
               "Paciente: " + data?.data?.nome_paciente + "\n\n" +
                data?.data?.descricao + "\n\n" + 
-              "Emissão: " + (data?.data?.emissao ? new Date(data?.data?.emissao).toLocaleDateString() : "")  + "\n" +
-              "Vencimento: " +  (data?.data?.emissao ? new Date(data?.data?.vencimento).toLocaleDateString() : "")
+              "Emissão: " + (data?.data?.emissao ? new Date(data?.data?.emissao).toLocaleDateString() : "")
             }
               slotProps={{
                 root: {

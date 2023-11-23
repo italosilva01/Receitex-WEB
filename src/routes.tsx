@@ -2,8 +2,11 @@ import SignUp from "./components/Page/Sign/cadastro.tsx";
 import SignIn from "./components/Page/Sign/login.tsx";
 import LandingPage from "./Page/LandingPage/index.tsx";
 import { Prescription } from "./Page/Prescription/index.tsx";
+import { Certificate } from "./Page/Certificate/index.tsx";
+import { Request } from "./Page/Request/index.tsx";
 import { Register } from "./Page/register/index.tsx";
 import { Patients } from "./Page/Patients/index.tsx";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -28,8 +31,17 @@ const router = createBrowserRouter([
     element: <Prescription />,
   },
   {
+
     path: "/patients/:id",
     element: <Patients />,
+
+    path: "/certificate/:id",
+    element: <Certificate />,
+  },
+  {
+    path: "/request/:id",
+    element: <Request />,
+
   }
 ]);
 

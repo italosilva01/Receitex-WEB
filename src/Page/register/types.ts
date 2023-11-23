@@ -12,3 +12,4 @@ export interface IPrescriptionFormData {
   typeValidUntil: string;
   valueValidUntil: string;
 }
+

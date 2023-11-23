@@ -22,7 +22,8 @@ import { Controller, useForm } from "react-hook-form";
 import { ICustomPropsReactNumer, IPrescriptionFormData, MarkdownTextType } from "./types";
 import { api } from "../../Services/api";
 import { useMutation } from "react-query";
-import { IPrescriptionCreateData } from "../../Services/urls/prescriptions/types";
+import { IPrescriptionCreateData, IRequestCreateData, ICertificateCreateData } from "../../Services/urls/prescriptions/types";
+import { redirect, useNavigate } from "react-router-dom";
 
 const NumericFormatAdapter = forwardRef<NumericFormatProps, ICustomPropsReactNumer>(
   function NumericFormatAdapter(props, ref) {
@@ -48,6 +49,7 @@ const NumericFormatAdapter = forwardRef<NumericFormatProps, ICustomPropsReactNum
 
 export const Register = () => {
   const [textType, setTextType] = useState<MarkdownTextType>("default");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -86,6 +88,7 @@ export const Register = () => {
   };
 
   const prescriptionMutation = useMutation(
+    
     (data: IPrescriptionCreateData) => {
       return api.prescriptions.create(data);
     },
@@ -94,6 +97,43 @@ export const Register = () => {
         reset();
         console.log("Receita criada com sucesso");
         console.log(data);
+        navigate(`/prescription/${data.data.id}`);
+      },
+      onError: (error) => {
+        console.log("Erro ao criar receita");
+        console.log(error);
+      },
+    }
+  );
+
+  const certificateMutation = useMutation(
+    (data: ICertificateCreateData) => {
+      return api.certificates.create(data);
+    },
+    {
+      onSuccess: (data) => {
+        reset();
+        console.log("Receita criada com sucesso");
+        console.log(data);
+        navigate(`/certificate/${data.data.id}`);
+      },
+      onError: (error) => {
+        console.log("Erro ao criar receita");
+        console.log(error);
+      },
+    }
+  );
+
+  const requestMutation = useMutation(
+    (data: IRequestCreateData) => {
+      return api.requests.create(data);
+    },
+    {
+      onSuccess: (data) => {
+        reset();
+        console.log("Receita criada com sucesso");
+        console.log(data);
+        navigate(`/request/${data.data.id}`);
       },
       onError: (error) => {
         console.log("Erro ao criar receita");
@@ -106,18 +146,46 @@ export const Register = () => {
     const dataAtual = new Date();
     dataAtual.setUTCHours(dataAtual.getUTCHours() - 3);
     const emissao = dataAtual.toISOString();
-    const vencimento = getValidUntilDateAsString();
 
-    const data: IPrescriptionCreateData = {
-      titulo: formData.title,
-      descricao: formData.description,
-      emissao: emissao,
-      vencimento: vencimento,
-      nome_medico: "",
-      nome_paciente: "",
-    };
+    console.log("formData.documentType: " + formData.documentType);
+    if(formData.documentType == "receita"){
+      const vencimento = getValidUntilDateAsString();
+      const data: IPrescriptionCreateData = {
+        titulo: formData.title,
+        descricao: formData.description,
+        emissao: emissao,
+        vencimento: vencimento,
+        nome_medico: "Médico da Silva",
+        nome_paciente: "Joãozinho do Pneu",
+      };      
+      prescriptionMutation.mutate(data);
+      
+    }
+    else if(formData.documentType == "atestado"){
+      const vencimento = getValidUntilDateAsString();
+      const data: ICertificateCreateData = {
+        titulo: formData.title,
+        descricao: formData.description,
+        emissao: emissao,
+        vencimento: vencimento,
+        nome_medico: "Médico da Silva",
+        nome_paciente: "Joãozinho do Pneu",
+      };
 
-    prescriptionMutation.mutate(data);
+      certificateMutation.mutate(data);
+    }
+    else if(formData.documentType == "requisicao"){
+      console.log("é uma requisicao");
+      const data: IRequestCreateData = {
+        titulo: formData.title,
+        descricao: formData.description,
+        emissao: emissao,
+        nome_medico: "Médico da Silva",
+        nome_paciente: "Joãozinho do Pneu",
+      };
+
+      requestMutation.mutate(data);
+    }
   };
 
   const displayInputError = (message: string | undefined) => {
@@ -132,6 +200,7 @@ export const Register = () => {
   const genericErrors = {
     required: "Campo obrigatório",
   };
+
 
   return (
     <Grid container direction="column">
@@ -181,7 +250,8 @@ export const Register = () => {
                 ></Controller>
               </Grid>
               <Grid xs={12} md={6}>
-                <LabelInput>Válido por</LabelInput>
+              {watch("documentType") !== "requisicao" && (<LabelInput>Válido por</LabelInput>)}
+                {watch("documentType") !== "requisicao" && (
                 <div>
                   <div className={styles.validUnitl}>
                     <FormControl error={Boolean(errors.valueValidUntil?.message)}>
@@ -218,6 +288,7 @@ export const Register = () => {
                     {displayInputError(errors.valueValidUntil?.message)}
                   </FormControl>
                 </div>
+                )}
               </Grid>
             </Grid>
             <Grid container justifyContent="space-between" spacing={8}>
