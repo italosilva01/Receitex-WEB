@@ -1,7 +1,11 @@
 import { Button } from "@mui/joy";
 import CardLandingPage from "./CardLandingPage";
 import styles from "./LandingPage.module.css";
+import { useNavigate } from "react-router-dom";
+
 function LandingPage() {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className={styles.contentLandingPage}>
@@ -21,7 +25,14 @@ function LandingPage() {
               Mantenha suas receitas ao alcance
               <br /> da mão, de forma digital e organizada.
             </CardLandingPage>
-            <Button size="lg">CRIAR CONTA</Button>
+            <Button
+              size="lg"
+              onClick={() => {
+                navigate("/signin");
+              }}
+            >
+              CRIAR CONTA
+            </Button>
           </div>
         </div>
       </div>

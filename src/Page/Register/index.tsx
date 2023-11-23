@@ -1,6 +1,5 @@
 import {
   Button,
-  CircularProgress,
   FormControl,
   FormHelperText,
   Grid,
@@ -13,39 +12,49 @@ import Textarea from "@mui/joy/Textarea";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import Typography from "@mui/joy/Typography";
-import { FormatItalic, FormatBold, FormatUnderlined, InfoOutlined } from "@mui/icons-material";
+import {
+  FormatItalic,
+  FormatBold,
+  FormatUnderlined,
+  InfoOutlined,
+} from "@mui/icons-material";
 import { forwardRef, useState } from "react";
 import styles from "./Register.module.css";
 import LabelInput from "./LabelInput";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 import { Controller, useForm } from "react-hook-form";
-import { ICustomPropsReactNumer, IPrescriptionFormData, MarkdownTextType } from "./types";
+import {
+  ICustomPropsReactNumer,
+  IPrescriptionFormData,
+  MarkdownTextType,
+} from "./types";
 import { api } from "../../Services/api";
 import { useMutation } from "react-query";
 import { IPrescriptionCreateData, IRequestCreateData, ICertificateCreateData } from "../../Services/urls/prescriptions/types";
 import { redirect, useNavigate } from "react-router-dom";
 
-const NumericFormatAdapter = forwardRef<NumericFormatProps, ICustomPropsReactNumer>(
-  function NumericFormatAdapter(props, ref) {
-    const { onChange, ...other } = props;
+const NumericFormatAdapter = forwardRef<
+  NumericFormatProps,
+  ICustomPropsReactNumer
+>(function NumericFormatAdapter(props, ref) {
+  const { onChange, ...other } = props;
 
-    return (
-      <NumericFormat
-        {...other}
-        getInputRef={ref}
-        onValueChange={(values) => {
-          onChange({
-            target: {
-              name: props.name,
-              value: values.value,
-            },
-          });
-        }}
-        valueIsNumericString
-      />
-    );
-  }
-);
+  return (
+    <NumericFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      valueIsNumericString
+    />
+  );
+});
 
 export const Register = () => {
   const [textType, setTextType] = useState<MarkdownTextType>("default");
@@ -254,7 +263,9 @@ export const Register = () => {
                 {watch("documentType") !== "requisicao" && (
                 <div>
                   <div className={styles.validUnitl}>
-                    <FormControl error={Boolean(errors.valueValidUntil?.message)}>
+                    <FormControl
+                      error={Boolean(errors.valueValidUntil?.message)}
+                    >
                       <Input
                         {...register("valueValidUntil", { ...genericErrors })}
                         size="lg"

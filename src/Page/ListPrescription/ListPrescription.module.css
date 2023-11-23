@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: red !important;
+  width: 100%;
+  height: calc(100svh - 50px);
+}
+
+.containerSearch {
+  background-color: #0047ff;
+  height: 7.75rem;
+}

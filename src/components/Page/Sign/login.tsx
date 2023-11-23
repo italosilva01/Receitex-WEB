@@ -5,7 +5,7 @@ import Card from "@mui/joy/Card";
 import Button from "@mui/joy/Button";
 import { redirect, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { HeaderCreateAccount } from "../../HeaderCreateAccount/HeaderCreateAccount";
+
 import Grid from "@mui/joy/Grid";
 
 function SignIn() {
@@ -35,7 +35,6 @@ function SignIn() {
 
   return (
     <Grid container sx={{ flexGrow: 1 }}>
-      <HeaderCreateAccount />
       <div className={styles["center-container"]}>
         <Card
           variant="solid"

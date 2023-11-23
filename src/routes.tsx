@@ -31,7 +31,6 @@ const router = createBrowserRouter([
     element: <Prescription />,
   },
   {
-
     path: "/patients/:id",
     element: <Patients />,
   },
@@ -42,8 +41,7 @@ const router = createBrowserRouter([
   {
     path: "/request/:id",
     element: <Request />,
-
-  }
+  },
 ]);
 
 const RoutesPages = () => <RouterProvider router={router} />;
