@@ -3,6 +3,6 @@ import { authApiInstance } from "../../apiInstance";
 
 export const medics = {
   registerMedic: (data: RegisterUser) => {
-    return authApiInstance.post(`/medico`, data);
+    return authApiInstance.post(`/auth/register`, data);
   },
 };

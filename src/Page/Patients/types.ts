@@ -6,8 +6,8 @@ export interface ICustomPropsReactNumer {
 }
 
 export interface IGetPatientFormData {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   role: string;
   id: string;
 }

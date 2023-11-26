@@ -12,8 +12,11 @@ import zod from "zod";
 import { api } from "../../../Services/api";
 
 const RegisterUserScheme = zod.object({
-  firstname: zod.string().email(),
-  lastname: zod.string(),
+  first_name: zod.string(),
+  last_name: zod.string(),
+  user_name: zod.string().email(),
+  password: zod.string(),
+  role: zod.string()
 });
 
 type RegisterUser = zod.infer<typeof RegisterUserScheme>;
@@ -26,7 +29,7 @@ function SignUp() {
   ) => {
     console.log(e);
 
-    const response = await api.medics.registerMedic({ ...e, role: "DOCTOR" });
+    const response = await api.medics.registerMedic({ ...e, role: "DOCTOR", password:'123', user_name:'teste_front'});
     console.log(response);
   };
   const renderSignIn = () => {
@@ -53,7 +56,7 @@ function SignUp() {
                 size="sm"
                 className={styles["input"]}
                 variant="soft"
-                {...register("firstname", { required: true })}
+                {...register("first_name", { required: true })}
               />
             </div>
             <div className={styles["input-field"]}>
@@ -64,7 +67,7 @@ function SignUp() {
                 size="sm"
                 className={styles["input"]}
                 variant="soft"
-                {...register("lastname", { required: true })}
+                {...register("last_name", { required: true })}
               />
             </div>
             <div className={styles["button-container"]}>
