@@ -10,14 +10,23 @@ import Grid from "@mui/joy/Grid";
 import zod from "zod";
 
 import { api } from "../../../Services/api";
+import { Autocomplete } from "@mui/joy";
 
 const RegisterUserScheme = zod.object({
   first_name: zod.string(),
   last_name: zod.string(),
   user_name: zod.string().email(),
   password: zod.string(),
-  role: zod.string()
+  role: zod.string(),
 });
+
+const options = {
+  doutor: "DOCTOR",
+  farmaceutico: "PHARMACEUTICAL",
+  paciente: "PATIENT",
+} as const;
+
+const optionsAutocompleteKeys = Object.keys(options);
 
 type RegisterUser = zod.infer<typeof RegisterUserScheme>;
 
@@ -28,8 +37,11 @@ function SignUp() {
     e: RegisterUser
   ) => {
     console.log(e);
+    const newData = { ...e, role: String(options[`${e.role}`]) };
 
-    const response = await api.medics.registerMedic({ ...e, role: "DOCTOR", password:'123', user_name:'teste_front'});
+    const response = await api.medics.registerMedic({
+      ...newData,
+    });
     console.log(response);
   };
   const renderSignIn = () => {
@@ -37,17 +49,39 @@ function SignUp() {
   };
 
   return (
-    <Grid container sx={{ flexGrow: 1 }}>
+    <Grid container sx={{ flexGrow: 1 }} alignItems="bottom">
       <div className={styles["center-container"]}>
         <Card
           variant="solid"
           color="primary"
           invertedColors
           sx={{ minWidth: 343 }}
-          className={styles["signup-container"]}
+          // className={styles["signup-container"]}
         >
           <h2 className={styles["signup-title"]}>Criar conta</h2>
           <form method="POST" onSubmit={handleSubmit(registerUserMedic)}>
+            <div className={styles["input-field"]}>
+              <label htmlFor="email" className={styles["input-label"]}>
+                Primeiro nome:
+              </label>
+              <Input
+                size="sm"
+                className={styles["input"]}
+                variant="soft"
+                {...register("first_name", { required: true })}
+              />
+            </div>
+            <div className={styles["input-field"]}>
+              <label htmlFor="last_name" className={styles["input-label"]}>
+                Segundo nome:
+              </label>
+              <Input
+                size="sm"
+                className={styles["input"]}
+                variant="soft"
+                {...register("last_name", { required: true })}
+              />
+            </div>
             <div className={styles["input-field"]}>
               <label htmlFor="email" className={styles["input-label"]}>
                 Email:
@@ -60,14 +94,26 @@ function SignUp() {
               />
             </div>
             <div className={styles["input-field"]}>
-              <label htmlFor="senha" className={styles["input-label"]}>
+              <label className={styles["input-label"]}>Você é:</label>
+              <Autocomplete
+                options={optionsAutocompleteKeys}
+                slotProps={{
+                  input: {
+                    autoComplete: "new-password",
+                  },
+                }}
+                {...register("role", { required: true })}
+              />
+            </div>
+            <div className={styles["input-field"]}>
+              <label htmlFor="password" className={styles["input-label"]}>
                 Senha:
               </label>
               <Input
                 size="sm"
                 className={styles["input"]}
                 variant="soft"
-                {...register("last_name", { required: true })}
+                {...register("password", { required: true })}
               />
             </div>
             <div className={styles["button-container"]}>
