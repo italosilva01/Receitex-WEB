@@ -5,6 +5,7 @@ import {
   certificates,
   requests,
 } from "./urls/prescriptions/index";
+import { authLogin } from "./urls/auth";
 
 export const api = {
   prescriptions,
@@ -12,4 +13,5 @@ export const api = {
   requests,
   patients,
   medics,
+  authLogin
 };

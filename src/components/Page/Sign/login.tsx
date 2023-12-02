@@ -5,16 +5,38 @@ import Card from "@mui/joy/Card";
 import Button from "@mui/joy/Button";
 import { redirect, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { api } from "../../../Services/api";
+import zod from "zod";
 
 import Grid from "@mui/joy/Grid";
+
+
+const LoginUserScheme = zod.object({
+  user_name: zod.string().email(),
+  password: zod.string(),
+});
+
+type LoginUser = zod.infer<typeof LoginUserScheme>;
 
 function SignIn() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: "",
-    senha: "",
+    user_name: "",
+    password: "",
   });
+
+  const loginUser = async (
+    e: LoginUser
+  ) => {
+    console.log(e);
+    const newData = { ...e};
+
+    const response = await api.authLogin.loginUser({
+      ...newData,
+    });
+    console.log(response);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,6 +48,7 @@ function SignIn() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    loginUser(formData);
     navigate("/"); // Lógica para enviar os dados do formulário para o servidor ou realizar outras ações
   };
 
@@ -44,7 +67,7 @@ function SignIn() {
           className={styles["signup-container"]}
         >
           <h2 className={styles["signup-title"]}>Login</h2>
-          <form onSubmit={handleSubmit}>
+          <form method="POST" onSubmit={handleSubmit}>
             <div className={styles["input-field"]}>
               <label htmlFor="email" className={styles["input-label"]}>
                 Email:
@@ -53,8 +76,8 @@ function SignIn() {
                 size="sm"
                 type="email"
                 id="email"
-                name="email"
-                value={formData.email}
+                name="user_name"
+                value={formData.user_name}
                 onChange={handleChange}
                 className={styles["input"]}
                 variant="soft"
@@ -68,8 +91,8 @@ function SignIn() {
                 size="sm"
                 type="password"
                 id="senha"
-                name="senha"
-                value={formData.senha}
+                name="password"
+                value={formData.password}
                 onChange={handleChange}
                 className={styles["input"]}
                 variant="soft"
@@ -103,3 +126,4 @@ function SignIn() {
 }
 
 export default SignIn;
+export type { LoginUser };

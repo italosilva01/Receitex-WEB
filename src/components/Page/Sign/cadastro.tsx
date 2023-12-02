@@ -61,7 +61,7 @@ function SignUp() {
           <h2 className={styles["signup-title"]}>Criar conta</h2>
           <form method="POST" onSubmit={handleSubmit(registerUserMedic)}>
             <div className={styles["input-field"]}>
-              <label htmlFor="email" className={styles["input-label"]}>
+              <label htmlFor="first_name" className={styles["input-label"]}>
                 Primeiro nome:
               </label>
               <Input
@@ -90,7 +90,7 @@ function SignUp() {
                 size="sm"
                 className={styles["input"]}
                 variant="soft"
-                {...register("first_name", { required: true })}
+                {...register("user_name", { required: true })}
               />
             </div>
             <div className={styles["input-field"]}>
