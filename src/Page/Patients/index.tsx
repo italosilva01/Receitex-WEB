@@ -15,41 +15,23 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import { FormControl, Grid, Skeleton } from "@mui/joy";
-import Sheet from "@mui/joy/Sheet";
-import Textarea from "@mui/joy/Textarea";
-import Select from "@mui/joy/Select";
-import Option from "@mui/joy/Option";
-import { FormatItalic, FormatBold, FormatUnderlined, InfoOutlined } from "@mui/icons-material";
-import { forwardRef, useState } from "react";
-import styles from "./Register.module.css";
-import LabelInput from "./LabelInput";
-import { NumericFormat, NumericFormatProps } from "react-number-format";
-import { Controller, useForm } from "react-hook-form";
-import { ICustomPropsReactNumer, IPrescriptionFormData, MarkdownTextType } from "./types";
 import { api } from "../../Services/api";
-import { useMutation, useQuery } from "react-query";
-import { IPrescriptionCreateData } from "../../Services/urls/prescriptions/types";
-import { useParams, redirect, useNavigate } from 'react-router-dom';
+import { useQuery } from "react-query";
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 export const Patients = () => {
+
+
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { isLoading, data } = useQuery("patients", () =>
+  const {isLoading, status, data} = useQuery([], () =>
     api.patients.geAllFromDoctor(params.id ?? "")
   );
 
-  const staticData = [
-    { id: '4f6d11c7-82cf-4d6a-a0c3-56a1f79149d1', first_name: 'Fernanda', last_name: 'Gonçalves' },
-    { id: '9bfb08e7-3ae2-4b8e-b5b5-24f346b30972', first_name: 'Michelle', last_name: 'Teixeira'},
-    { id: 'a46d25c1-ec22-4d3b-b9a7-ec5ab3ac2df7', first_name: 'Marcosuel', last_name: 'Filho' },
-    { id: '2b0e5fad-d282-4fc4-8c2e-fda4fe27a7b4', first_name: 'Italo', last_name: ''},
-  ];
-
   const handleButtonClick = () => {
     // Lógica a ser executada quando o botão é clicado
-    console.log(`Data retornado ${data}`);
+    console.log(`Data retornado ${data?.data}`);
     navigate(`/register`);
   };
 
@@ -132,24 +114,27 @@ export const Patients = () => {
       <Box sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper', margin: 'auto', marginTop: '30px'}}>
         <nav aria-label="main mailbox folders">
         <List>
-      {isLoading && <p>Loading...</p>}
-      {staticData.map((patient) => (
-        <ListItem key={patient.id} disablePadding>
-          <ListItem>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary={patient.first_name + " " + patient.last_name} />
-            <ListItemButton 
-              sx={{ bgcolor: '#1664c9', maxWidth: '130px'}}
-              onClick={() => handleButtonClick()}
-            >
-              <ListItemText sx={{ color: 'background.paper', margin: 'auto'}} primary="Nova Receita" />
-            </ListItemButton>
-          </ListItem>
-        </ListItem>
-      ))}
-    </List>   
+          {isLoading && <p>Loanding...</p>}
+          {status ==  "success"  && (
+            <div>
+              {data?.data?.map((patient) => (
+                <ListItem key={patient.id} disablePadding>
+                  <ListItem>
+                    <ListItemIcon>
+                      <PersonIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={patient.first_name + " " + patient.last_name} />
+                    <ListItemButton 
+                      sx={{ bgcolor: '#1664c9', maxWidth: '130px'}}
+                      onClick={() => handleButtonClick()}
+                    >
+                      <ListItemText sx={{ color: 'background.paper', margin: 'auto'}} primary="Nova Receita" />
+                    </ListItemButton>
+                  </ListItem>
+                </ListItem>))}
+            </div>
+          )}
+        </List>   
         </nav>
       </Box>
     </Box>
