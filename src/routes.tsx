@@ -4,7 +4,7 @@ import LandingPage from "./Page/LandingPage/index.tsx";
 import { Prescription } from "./Page/Prescription/index.tsx";
 import { Certificate } from "./Page/Certificate/index.tsx";
 import { Request } from "./Page/Request/index.tsx";
-import { Register } from "./Page/register/index.tsx";
+import { Register } from "./Page/Register/index.tsx";
 import { Patients } from "./Page/Patients/index.tsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

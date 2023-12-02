@@ -28,7 +28,7 @@ function LandingPage() {
             <Button
               size="lg"
               onClick={() => {
-                navigate("/signin");
+                navigate("/signup");
               }}
             >
               CRIAR CONTA
