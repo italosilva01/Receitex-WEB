@@ -9,5 +9,5 @@ export interface IGetPatientFormData {
   first_name: string;
   last_name: string;
   role: string;
-  id: string;
+  paciente_id: string;
 }

@@ -29,11 +29,12 @@ export const Patients = () => {
     api.patients.geAllFromDoctor(params.id ?? "")
   );
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (paciente_id: string) => {
     // Lógica a ser executada quando o botão é clicado
     console.log(`Data retornado ${data?.data}`);
-    navigate(`/register`);
+    navigate(`/register/${paciente_id}`);
   };
+
 
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
@@ -118,7 +119,7 @@ export const Patients = () => {
           {status ==  "success"  && (
             <div>
               {data?.data?.map((patient) => (
-                <ListItem key={patient.id} disablePadding>
+                <ListItem key={patient.paciente_id} disablePadding>
                   <ListItem>
                     <ListItemIcon>
                       <PersonIcon />
@@ -126,7 +127,7 @@ export const Patients = () => {
                     <ListItemText primary={patient.first_name + " " + patient.last_name} />
                     <ListItemButton 
                       sx={{ bgcolor: '#1664c9', maxWidth: '130px'}}
-                      onClick={() => handleButtonClick()}
+                      onClick={() => handleButtonClick(patient.paciente_id)}
                     >
                       <ListItemText sx={{ color: 'background.paper', margin: 'auto'}} primary="Nova Receita" />
                     </ListItemButton>

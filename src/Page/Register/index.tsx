@@ -31,7 +31,8 @@ import {
 import { api } from "../../Services/api";
 import { useMutation } from "react-query";
 import { IPrescriptionCreateData, IRequestCreateData, ICertificateCreateData } from "../../Services/urls/prescriptions/types";
-import { redirect, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
 
 const NumericFormatAdapter = forwardRef<
   NumericFormatProps,
@@ -59,6 +60,11 @@ const NumericFormatAdapter = forwardRef<
 export const Register = () => {
   const [textType, setTextType] = useState<MarkdownTextType>("default");
   const navigate = useNavigate();
+  const params = useParams<{ patient_id: string }>();
+
+  const {isLoading, status, data} = useQuery([], () =>
+    api.patients.getOne(params.patient_id ?? "")
+  );
 
   const {
     register,
@@ -159,41 +165,44 @@ export const Register = () => {
     console.log("formData.documentType: " + formData.documentType);
     if(formData.documentType == "receita"){
       const vencimento = getValidUntilDateAsString();
-      const data: IPrescriptionCreateData = {
+      const dataPatient: IPrescriptionCreateData = {
         titulo: formData.title,
         descricao: formData.description,
         emissao: emissao,
         vencimento: vencimento,
         nome_medico: "Médico da Silva",
-        nome_paciente: "Joãozinho do Pneu",
+        nome_paciente: data?.data.first_name+" "+data?.data.last_name,
+        paciente_id: data?.data.paciente_id
       };      
-      prescriptionMutation.mutate(data);
+      prescriptionMutation.mutate(dataPatient);
       
     }
     else if(formData.documentType == "atestado"){
       const vencimento = getValidUntilDateAsString();
-      const data: ICertificateCreateData = {
+      const dataAtestado: ICertificateCreateData = {
         titulo: formData.title,
         descricao: formData.description,
         emissao: emissao,
         vencimento: vencimento,
         nome_medico: "Médico da Silva",
         nome_paciente: "Joãozinho do Pneu",
+        paciente_id: data?.data.paciente_id
       };
 
-      certificateMutation.mutate(data);
+      certificateMutation.mutate(dataAtestado);
     }
     else if(formData.documentType == "requisicao"){
       console.log("é uma requisicao");
-      const data: IRequestCreateData = {
+      const dataRequisicao: IRequestCreateData = {
         titulo: formData.title,
         descricao: formData.description,
         emissao: emissao,
         nome_medico: "Médico da Silva",
         nome_paciente: "Joãozinho do Pneu",
+        paciente_id: data?.data.paciente_id
       };
 
-      requestMutation.mutate(data);
+      requestMutation.mutate(dataRequisicao);
     }
   };
 
@@ -218,7 +227,9 @@ export const Register = () => {
           <Grid alignItems="start" xs={12} md={8}>
             <Typography level="h1">Crie sua receita para</Typography>
             <Typography level="h3" fontWeight={400}>
-              Rodolfo Dos Santos Filho
+             {isLoading && "loading"}
+             {status ==  "success"  && (<>{data?.data.first_name+" "+data?.data.last_name}</>)}
+
             </Typography>
           </Grid>
         </Grid>

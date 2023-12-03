@@ -5,6 +5,7 @@ export interface IPrescriptionCreateData {
   vencimento: string;
   nome_medico: string;
   nome_paciente: string;
+  paciente_id: string | undefined;
 }
 
 export interface ICertificateCreateData {
@@ -14,6 +15,7 @@ export interface ICertificateCreateData {
   vencimento: string;
   nome_medico: string;
   nome_paciente: string;
+  paciente_id:  string | undefined;
 }
 
 export interface IRequestCreateData {
@@ -22,4 +24,5 @@ export interface IRequestCreateData {
   emissao: string;
   nome_medico: string;
   nome_paciente: string;
+  paciente_id: string | undefined;
 }

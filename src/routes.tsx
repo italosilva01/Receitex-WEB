@@ -23,8 +23,8 @@ const router = createBrowserRouter([
     element: <SignIn />,
   },
   {
-    path: "/register",
-    element: <Register />,
+    path: "/register/:patient_id",
+    element: <Register  />,
   },
   {
     path: "/prescription/:id",
