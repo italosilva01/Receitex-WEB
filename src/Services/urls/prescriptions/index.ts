@@ -3,7 +3,7 @@ import { IPrescriptionCreateData, ICertificateCreateData, IRequestCreateData } f
 
 export const prescriptions = {
   getAll: () => {
-    return apiInstance.get("/receita");
+    return apiInstance.get("/receitas");
   },
   getOne: (id: string) => {
     return apiInstance.get<IPrescriptionCreateData>(`/receita?id=${id}`);
