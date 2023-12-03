@@ -8,6 +8,7 @@ import { Register } from "./Page/Register/index.tsx";
 import { Patients } from "./Page/Patients/index.tsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ListPrescription } from "./Page/ListPrescription/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +28,16 @@ const router = createBrowserRouter([
     element: <Register  />,
   },
   {
-    path: "/prescription/:id",
-    element: <Prescription />,
-  },
-  {
     path: "/patients/:id",
     element: <Patients />,
+  },
+  {
+    path: "/prescriptions/paciente/:id",
+    element: <ListPrescription />,
+  },
+  {
+    path: "/prescription/:id",
+    element: <Prescription />,
   },
   {
     path: "/certificate/:id",
