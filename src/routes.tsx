@@ -1,14 +1,15 @@
-import SignUp from "./components/Page/Sign/cadastro.tsx";
+import { SignUp } from "./components/Page/Sign/cadastro.tsx";
 import SignIn from "./components/Page/Sign/login.tsx";
 import LandingPage from "./Page/LandingPage/index.tsx";
 import { Prescription } from "./Page/Prescription/index.tsx";
 import { Certificate } from "./Page/Certificate/index.tsx";
 import { Request } from "./Page/Request/index.tsx";
-import { Register } from "./Page/register/index.tsx";
+import { Register } from "./Page/Register/index.tsx";
 import { Patients } from "./Page/Patients/index.tsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DocsAndPrescriptions from "./Page/DocsAndPrescriptions/index.tsx";
+import { ListPrescription } from "./Page/ListPrescription/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +25,16 @@ const router = createBrowserRouter([
     element: <SignIn />,
   },
   {
-    path: "/register",
-    element: <Register />,
+    path: "/register/:patient_id",
+    element: <Register  />,
+  },
+  {
+    path: "/patients/:id",
+    element: <Patients />,
+  },
+  {
+    path: "/prescriptions/paciente/:id",
+    element: <ListPrescription />,
   },
   {
     path: "/prescription/:id",

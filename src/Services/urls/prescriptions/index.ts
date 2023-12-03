@@ -5,6 +5,9 @@ export const prescriptions = {
   getAll: () => {
     return apiInstance.get("/receitas");
   },
+  getAllByPatientId: (id: string) => {
+  	return apiInstance.get<[IPrescriptionCreateData]>(`/receitas/paciente?id=${id}`);
+  },
   getOne: (id: string) => {
     return apiInstance.get<IPrescriptionCreateData>(`/receita?id=${id}`);
   },
