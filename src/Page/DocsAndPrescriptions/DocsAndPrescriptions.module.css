@@ -1,0 +1,60 @@
+.shellDocs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  border: #5c86ad46 1px solid;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  gap: 15px;
+}
+
+.cardDocs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: #5c86ad46 1px solid;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.cardDocs > h2 {
+  color: #2d3f50;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  font-weight: 700;
+}
+
+.cardDocs > span {
+  color: #6a7b8c;
+}
+
+.pillTypeDocs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 15px;
+  width: fit-content;
+  border-radius: 100px;
+  font-weight: 600;
+  padding-bottom: 9px;
+}
+
+.pillPrescription {
+  background: #9fffa3;
+  color: #458c48;
+}
+
+.pillReport {
+  background: #ff9f9f;
+  color: #8c4545;
+}
+
+.pillDocs {
+  background: #9f9fff;
+  color: #45458c;
+}

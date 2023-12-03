@@ -8,6 +8,7 @@ import { Register } from "./Page/Register/index.tsx";
 import { Patients } from "./Page/Patients/index.tsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DocsAndPrescriptions from "./Page/DocsAndPrescriptions/index.tsx";
 import { ListPrescription } from "./Page/ListPrescription/index.tsx";
 
 const router = createBrowserRouter([
@@ -40,12 +41,20 @@ const router = createBrowserRouter([
     element: <Prescription />,
   },
   {
+    path: "/patients/:id",
+    element: <Patients />,
+  },
+  {
     path: "/certificate/:id",
     element: <Certificate />,
   },
   {
     path: "/request/:id",
     element: <Request />,
+  },
+  {
+    path: "/docs",
+    element: <DocsAndPrescriptions />,
   },
 ]);
 
