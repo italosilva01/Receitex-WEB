@@ -1,4 +1,5 @@
 export interface IPrescriptionCreateData {
+  id: string;
   titulo: string;
   descricao: string;
   emissao: string;
