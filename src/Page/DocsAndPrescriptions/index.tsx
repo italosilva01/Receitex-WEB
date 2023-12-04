@@ -20,7 +20,6 @@ function DocsAndPrescriptions() {
     () => api.prescriptions.getAll(),
     {
       onSuccess: (response) => {
-        console.log(data)
         setDocs(response.data);
       },
     }
