@@ -8,6 +8,7 @@ import { redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Grid from "@mui/joy/Grid";
 import zod from "zod";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { api } from "../../../Services/api";
 import { Autocomplete } from "@mui/joy";
@@ -42,10 +43,16 @@ function SignUp() {
       ...newData,
     });
     console.log(response);
+    if(response != null){
+      navigate(`/home/patient`);
+    }
+    
   };
   const renderSignIn = () => {
     return redirect("/signin");
   };
+
+  const navigate = useNavigate();
 
   return (
     <Grid
