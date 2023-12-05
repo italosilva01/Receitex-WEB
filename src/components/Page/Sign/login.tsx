@@ -20,7 +20,7 @@ type LoginUser = zod.infer<typeof LoginUserScheme>;
 
 function SignIn() {
   const navigate = useNavigate();
-  const { decodeJWTAndGetUser } = useAuth();
+  const { decodeJWTAndGetUser, user } = useAuth();
 
   const [formData, setFormData] = useState({
     user_name: "",
@@ -35,7 +35,7 @@ function SignIn() {
       ...newData,
     });
     decodeJWTAndGetUser(response.data.token);
-    console.log(response);
+    console.log(user.user_name);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,14 @@ function SignIn() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     loginUser(formData);
-    navigate("/");
+    
+    if(user.user_role == "doctor"){
+      navigate(`/patients/${user.user_id}`);
+    }else if(user.user_role == "patient"){
+      navigate(`/prescriptions/paciente/${user.user_id}`);
+    }else{
+      navigate("/")
+    }
   };
 
   const renderSignUp = () => {
