@@ -14,6 +14,7 @@ function DocsAndPrescriptions() {
     [],
     () => api.documents.getAllByPatientId(params.id ?? ""),
     {
+
       onSuccess: () => {
         console.log(data?.data.receitas)
         console.log(data?.data.atestados)

@@ -9,7 +9,7 @@ import { api } from "../../../Services/api";
 import zod from "zod";
 
 import Grid from "@mui/joy/Grid";
-
+import { useAuth } from "../../../contexts/AuthContext";
 
 const LoginUserScheme = zod.object({
   user_name: zod.string().email(),
@@ -20,22 +20,22 @@ type LoginUser = zod.infer<typeof LoginUserScheme>;
 
 function SignIn() {
   const navigate = useNavigate();
+  const { decodeJWTAndGetUser, user } = useAuth();
 
   const [formData, setFormData] = useState({
     user_name: "",
     password: "",
   });
 
-  const loginUser = async (
-    e: LoginUser
-  ) => {
+  const loginUser = async (e: LoginUser) => {
     console.log(e);
-    const newData = { ...e};
+    const newData = { ...e };
 
     const response = await api.authLogin.loginUser({
       ...newData,
     });
-    console.log(response);
+    decodeJWTAndGetUser(response.data.token);
+    console.log(user.user_name);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,14 @@ function SignIn() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     loginUser(formData);
-    navigate("/"); // Lógica para enviar os dados do formulário para o servidor ou realizar outras ações
+    
+    if(user.user_role == "doctor"){
+      navigate(`/patients/${user.user_id}`);
+    }else if(user.user_role == "patient"){
+      navigate(`/prescriptions/paciente/${user.user_id}`);
+    }else{
+      navigate("/")
+    }
   };
 
   const renderSignUp = () => {

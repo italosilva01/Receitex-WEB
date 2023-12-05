@@ -33,6 +33,7 @@ import { useMutation } from "react-query";
 import { IPrescriptionCreateData, IRequestCreateData, ICertificateCreateData } from "../../Services/urls/prescriptions/types";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const NumericFormatAdapter = forwardRef<
   NumericFormatProps,
@@ -60,6 +61,7 @@ const NumericFormatAdapter = forwardRef<
 export const Register = () => {
   const [textType, setTextType] = useState<MarkdownTextType>("default");
   const navigate = useNavigate();
+  const { user } = useAuth();
   const params = useParams<{ patient_id: string }>();
 
   const {isLoading, status, data} = useQuery([], () =>
@@ -170,7 +172,7 @@ export const Register = () => {
         descricao: formData.description,
         emissao: emissao,
         vencimento: vencimento,
-        nome_medico: "Médico da Silva",
+        nome_medico: user.user_name,
         nome_paciente: data?.data.first_name+" "+data?.data.last_name,
         paciente_id: data?.data.paciente_id
       };      
@@ -184,8 +186,8 @@ export const Register = () => {
         descricao: formData.description,
         emissao: emissao,
         vencimento: vencimento,
-        nome_medico: "Médico da Silva",
-        nome_paciente: "Joãozinho do Pneu",
+        nome_medico: user.user_name,
+        nome_paciente: data?.data.first_name+" "+data?.data.last_name,
         paciente_id: data?.data.paciente_id
       };
 
@@ -197,8 +199,8 @@ export const Register = () => {
         titulo: formData.title,
         descricao: formData.description,
         emissao: emissao,
-        nome_medico: "Médico da Silva",
-        nome_paciente: "Joãozinho do Pneu",
+        nome_medico: user.user_name,
+        nome_paciente: data?.data.first_name+" "+data?.data.last_name,
         paciente_id: data?.data.paciente_id
       };
 
