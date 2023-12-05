@@ -1,4 +1,5 @@
 export interface IPrescriptionCreateData {
+  id: string;
   titulo: string;
   descricao: string;
   emissao: string;
@@ -25,4 +26,10 @@ export interface IRequestCreateData {
   nome_medico: string;
   nome_paciente: string;
   paciente_id: string | undefined;
+}
+
+export interface IDocumentsData{
+  receitas: Array<IPrescriptionCreateData>,
+  requisicoes: Array<IRequestCreateData>,
+  atestados: Array<ICertificateCreateData>
 }

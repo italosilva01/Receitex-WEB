@@ -1,26 +1,24 @@
 import { Grid } from "@mui/joy";
 import styles from "./DocsAndPrescriptions.module.css";
-import classNames from "classnames";
 import { useQuery } from "react-query";
 import { api } from "../../Services/api";
 import { useState } from "react";
-import { IDocs } from "./types";
+import { useParams } from "react-router";
+import { IDocumentsData } from "../../Services/urls/prescriptions/types";
+
 
 function DocsAndPrescriptions() {
-  const [docs, setDocs] = useState<IDocs[]>([
-    {
-      id: 0,
-      titulo: "Teste",
-      documentType: "receita",
-      vencimento: "",
-    },
-  ]);
+  const [docs, setDocs] = useState<IDocumentsData>();
+  const params = useParams<{ id: string }>();
   const { isLoading, data } = useQuery(
-    "prescription",
-    () => api.prescriptions.getAll(),
+    [],
+    () => api.documents.getAllByPatientId(params.id ?? ""),
     {
-      onSuccess: (response) => {
-        setDocs(response.data);
+
+      onSuccess: () => {
+        console.log(data?.data.receitas)
+        console.log(data?.data.atestados)
+        console.log(data?.data.requisicoes)
       },
     }
   );
@@ -28,18 +26,31 @@ function DocsAndPrescriptions() {
     <Grid container direction="column" alignContent="center">
       <Grid alignItems="start" xs={12} md={8} mt={5}>
         <div className={styles.shellDocs}>
-          {docs.map((doc) => (
+          {isLoading && <p>Loanding...</p>}
+          {data?.data.receitas.map((receita) => (
             <div className={styles.cardDocs}>
-              <h2>{doc.titulo}</h2>
-              <span>Vencimento: {new Date(doc.vencimento).toLocaleDateString()}</span>
-              <div
-                className={classNames([
-                  styles.pillTypeDocs,
-                  doc.documentType == "receita" && styles.pillPrescription,
-                  doc.documentType == "atestado" && styles.pillPrescriptionActive,
-                ])}
-              >
-                <span>{doc.documentType}</span>
+              <h2>{receita.titulo}</h2>
+              <span>Vencimento: {new Date(receita.vencimento).toLocaleDateString()}</span>
+              <div className={styles.pillPrescription}>
+                <span>{"Receita"}</span>
+              </div>
+            </div>
+          ))}
+          {data?.data.atestados.map((atestado) => (
+            <div className={styles.cardDocs}>
+              <h2>{atestado.titulo}</h2>
+              <span>Vencimento: {new Date(atestado.vencimento).toLocaleDateString()}</span>
+              <div className={styles.pillCertificate}>
+                <span>{"Atestado"}</span>
+              </div>
+            </div>
+          ))}
+          {data?.data.requisicoes.map((requisicao) => (
+            <div className={styles.cardDocs}>
+              <h2>{requisicao.titulo}</h2>
+              <span>Emissão: {new Date(requisicao.emissao).toLocaleDateString()}</span>
+              <div className={styles.pillRequest}>
+                <span>{"Requisição"}</span>
               </div>
             </div>
           ))}

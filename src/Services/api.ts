@@ -1,6 +1,7 @@
 import { patients } from "./urls/patients/index";
 import { medics } from "./urls/medics/index";
 import {
+  documents,
   prescriptions,
   certificates,
   requests,
@@ -8,6 +9,7 @@ import {
 import { authLogin } from "./urls/auth";
 
 export const api = {
+  documents,
   prescriptions,
   certificates,
   requests,

@@ -36,7 +36,6 @@ function SignUp() {
   const registerUserMedic: SubmitHandler<RegisterUser> = async (
     e: RegisterUser
   ) => {
-    console.log(e);
     const newData = { ...e, role: String(options[`${e.role}`]) };
 
     const response = await api.medics.registerMedic({
@@ -49,7 +48,14 @@ function SignUp() {
   };
 
   return (
-    <Grid container sx={{ flexGrow: 1 }} alignItems="bottom">
+    <Grid
+      container
+      sx={{ flexGrow: 1 }}
+      alignItems="bottom"
+      style={{
+        marginTop: "50px",
+      }}
+    >
       <div className={styles["center-container"]}>
         <Card
           variant="solid"
