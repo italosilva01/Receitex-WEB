@@ -49,6 +49,16 @@
   color: #458c48;
 }
 
+.pillCertificate{
+  background: #c09c6d;
+  color: #a75a2e;
+}
+
+.pillRequest{
+  background: #6dbac0;
+  color: #2e66a7;
+}
+
 .pillReport {
   background: #ff9f9f;
   color: #8c4545;

@@ -1,5 +1,5 @@
 import { apiInstance } from "../../apiInstance";
-import { IPrescriptionCreateData, ICertificateCreateData, IRequestCreateData } from "./types";
+import { IPrescriptionCreateData, ICertificateCreateData, IRequestCreateData, IDocumentsData } from "./types";
 
 export const prescriptions = {
   getAll: () => {
@@ -40,3 +40,9 @@ export const requests = {
   }
 };
 
+
+export const documents = {
+  getAllByPatientId: (id: string) => {
+  	return apiInstance.get<IDocumentsData>(`/document/paciente/${id}`);
+  },
+}

@@ -27,3 +27,9 @@ export interface IRequestCreateData {
   nome_paciente: string;
   paciente_id: string | undefined;
 }
+
+export interface IDocumentsData{
+  receitas: Array<IPrescriptionCreateData>,
+  requisicoes: Array<IRequestCreateData>,
+  atestados: Array<ICertificateCreateData>
+}
