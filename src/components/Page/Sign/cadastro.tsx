@@ -138,6 +138,7 @@ function SignUp() {
                 Senha:
               </label>
               <Input
+                type="password"
                 size="sm"
                 className={styles["input"]}
                 variant="soft"
