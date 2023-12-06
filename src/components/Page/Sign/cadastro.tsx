@@ -44,7 +44,13 @@ function SignUp() {
     });
     console.log(response);
     if(response != null){
-      navigate(`/home/patient`);
+      if(String(options[`${e.role}`]) == 'PATIENT'){
+        navigate(`/home/patient`);
+      }
+      else{
+        console.log("not a patient");
+      }
+      
     }
     
   };
