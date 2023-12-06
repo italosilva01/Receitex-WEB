@@ -1,5 +1,4 @@
-// import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import styles from "./SignUp.module.css";
 import Input from "@mui/joy/Input";
 import Card from "@mui/joy/Card";
