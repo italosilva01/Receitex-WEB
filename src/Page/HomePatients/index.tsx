@@ -18,10 +18,12 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import MedicationIcon from '@mui/icons-material/Medication';
 import { Link } from "react-router-dom";
 import Person2Icon from '@mui/icons-material/Person2';
+import { useAuth } from "../../contexts/AuthContext";
 
 export const HomePatients = () => {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { isLoading, data, status } = useQuery([], () =>
     api.prescriptions.getAllByPatientId(params.id ?? "")
   );
@@ -29,7 +31,8 @@ export const HomePatients = () => {
   const handleButtonClick = (id: string) => {
     // Lógica a ser executada quando o botão é clicado
     console.log(`Data retornado ${data?.data}`);
-    navigate(`/prescription/${id}`);
+    navigate(`/docs/paciente/${user.user_id}`);
+    //navigate(`/prescription/${id}`);
   }; 
 
   const Search = styled('div')(({ theme }) => ({
@@ -95,7 +98,7 @@ export const HomePatients = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-           Olá Fernanda!
+           Olá {user.user_name}!
           </Typography>
           <Search>
             <SearchIconWrapper>

@@ -8,10 +8,12 @@ import { redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Grid from "@mui/joy/Grid";
 import zod from "zod";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { api } from "../../../Services/api";
 import { Autocomplete } from "@mui/joy";
+import { useAuth } from "../../../contexts/AuthContext";
+import { useEffect } from "react";
 
 const RegisterUserScheme = zod.object({
   first_name: zod.string(),
@@ -33,6 +35,7 @@ type RegisterUser = zod.infer<typeof RegisterUserScheme>;
 
 function SignUp() {
   const { register, handleSubmit } = useForm();
+  const { cleanUser } = useAuth();
 
   const registerUserMedic: SubmitHandler<RegisterUser> = async (
     e: RegisterUser
@@ -52,13 +55,16 @@ function SignUp() {
       }
       
     }
-    
   };
   const renderSignIn = () => {
     return redirect("/signin");
   };
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    cleanUser();
+  })
 
   return (
     <Grid
