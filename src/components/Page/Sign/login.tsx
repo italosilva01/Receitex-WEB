@@ -20,7 +20,7 @@ type LoginUser = zod.infer<typeof LoginUserScheme>;
 
 function SignIn() {
   const navigate = useNavigate();
-  const { decodeJWTAndGetUser, user } = useAuth();
+  const { decodeJWTAndGetUser, user, cleanUser } = useAuth();
 
   const [formData, setFormData] = useState({
     user_name: "",
@@ -36,6 +36,10 @@ function SignIn() {
     });
     decodeJWTAndGetUser(response.data.token);
     console.log(user.user_name);
+    //gambiarra :p
+    if(response.status== 200 && user.is_active){
+      redirectUser()
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,18 +53,22 @@ function SignIn() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     loginUser(formData);
-    
-    if(user.user_role == "doctor"){
-      navigate(`/patients/${user.user_id}`);
-    }else if(user.user_role == "patient"){
-      navigate(`/prescriptions/paciente/${user.user_id}`);
-    }else{
-      navigate("/")
-    }
+    console.log(user.user_role)
   };
 
   const renderSignUp = () => {
+    cleanUser();
     return redirect("/signup");
+  };
+
+  const redirectUser = () => {
+    if(user.user_role == "doctor"){
+      navigate(`/patients/${user.user_id}`);
+    }else if(user.user_role == "patient"){
+      navigate(`/docs/paciente/${user.user_id}`);
+    }else{
+      navigate("/")
+    }
   };
 
   return (

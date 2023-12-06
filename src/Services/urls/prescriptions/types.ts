@@ -10,6 +10,7 @@ export interface IPrescriptionCreateData {
 }
 
 export interface ICertificateCreateData {
+  id: string;
   titulo: string;
   descricao: string;
   emissao: string;
@@ -20,6 +21,7 @@ export interface ICertificateCreateData {
 }
 
 export interface IRequestCreateData {
+  id: string;
   titulo: string;
   descricao: string;
   emissao: string;

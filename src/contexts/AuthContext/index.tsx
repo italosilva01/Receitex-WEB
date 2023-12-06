@@ -10,6 +10,7 @@ interface IProps {
 interface IAuthContext {
   user: IUser;
   decodeJWTAndGetUser: (token: string) => void;
+  cleanUser: () => void;
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -19,11 +20,16 @@ export const AuthProvider = ({ children }: IProps) => {
 
   const decodeJWTAndGetUser = (token: string) => {
     const decoded = jwtDecode(token) as IUser;
+    decoded.is_active = true;
     console.log(decoded)
     setUser(decoded);
   };
 
-  return <AuthContext.Provider value={{ user, decodeJWTAndGetUser }}>{children}</AuthContext.Provider>;
+  const cleanUser = () => {
+    setUser({...user, is_active:false});
+  }
+
+  return <AuthContext.Provider value={{ user, decodeJWTAndGetUser, cleanUser}}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
