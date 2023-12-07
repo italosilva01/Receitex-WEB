@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SignUp.module.css";
 import Input from "@mui/joy/Input";
 import Card from "@mui/joy/Card";
@@ -26,6 +26,7 @@ function SignIn() {
     user_name: "",
     password: "",
   });
+  const [userLogged, setUserLogged] = useState<boolean>(false);
 
   const loginUser = async (e: LoginUser) => {
     console.log(e);
@@ -35,12 +36,22 @@ function SignIn() {
       ...newData,
     });
     decodeJWTAndGetUser(response.data.token);
-    console.log(user.user_name);
-    //gambiarra :p
-    if(response.status== 200 && user.is_active){
-      redirectUser()
+    //gambiarra
+    if(response.status==200){
+      var logged = true
+      setUserLogged(logged)
+      //redirectUser()
     }
   };
+  //tentativa de usar o useEffect :p 
+  useEffect(() => {
+    if(user.is_active && userLogged==true){
+      console.log("user is active");
+      redirectUser()
+    }
+  },[user, userLogged])
+
+ 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -65,7 +76,7 @@ function SignIn() {
     if(user.user_role == "doctor"){
       navigate(`/patients/${user.user_id}`);
     }else if(user.user_role == "patient"){
-      navigate(`/docs/paciente/${user.user_id}`);
+      navigate("/home/patient")
     }else{
       navigate("/")
     }
