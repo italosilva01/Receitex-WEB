@@ -46,14 +46,12 @@ function SignUp() {
       ...newData,
     });
     console.log(response);
-    if(response != null){
-      if(String(options[`${e.role}`]) == 'PATIENT'){
+    if (response != null) {
+      if (String(options[`${e.role}`]) == "PATIENT") {
         navigate(`/home/patient`);
-      }
-      else{
+      } else {
         console.log("not a patient");
       }
-      
     }
   };
   const renderSignIn = () => {
@@ -64,7 +62,7 @@ function SignUp() {
 
   useEffect(() => {
     cleanUser();
-  })
+  });
 
   return (
     <Grid
@@ -138,6 +136,7 @@ function SignUp() {
                 size="sm"
                 className={styles["input"]}
                 variant="soft"
+                type="password"
                 {...register("password", { required: true })}
               />
             </div>
