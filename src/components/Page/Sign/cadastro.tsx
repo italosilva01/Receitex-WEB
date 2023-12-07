@@ -1,5 +1,4 @@
-// import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import styles from "./SignUp.module.css";
 import Input from "@mui/joy/Input";
 import Card from "@mui/joy/Card";
@@ -10,7 +9,9 @@ import Grid from "@mui/joy/Grid";
 import zod from "zod";
 
 import { api } from "../../../Services/api";
-import { Autocomplete } from "@mui/joy";
+import { Alert, Autocomplete, IconButton } from "@mui/joy";
+import { useState } from "react";
+import { Close } from "@mui/icons-material";
 
 const RegisterUserScheme = zod.object({
   first_name: zod.string(),
@@ -26,23 +27,37 @@ const options = {
   paciente: "PATIENT",
 } as const;
 
+type SubmitHandler = (data: any) => Promise<void>;
+
 const optionsAutocompleteKeys = Object.keys(options);
 
 type RegisterUser = zod.infer<typeof RegisterUserScheme>;
 
 function SignUp() {
   const { register, handleSubmit } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
+  const [showAlertError, setShowAlertError] = useState(false);
 
-  const registerUserMedic: SubmitHandler<RegisterUser> = async (
-    e: RegisterUser
-  ) => {
-    const newData = { ...e, role: String(options[`${e.role}`]) };
+  const registerUserMedic: SubmitHandler = async (data: any) => {
+    const typedData = data as RegisterUser;
+    setIsLoading(true);
 
-    const response = await api.medics.registerMedic({
-      ...newData,
-    });
-    console.log(response);
+    const newData = { ...typedData, role: options[typedData.role as keyof typeof options] };
+
+    api.medics
+      .registerMedic({
+        ...newData,
+      })
+      .then(() => {
+        renderSignIn();
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setShowAlertError(true);
+        setIsLoading(false);
+      });
   };
+
   const renderSignIn = () => {
     return redirect("/signin");
   };
@@ -57,14 +72,21 @@ function SignUp() {
       }}
     >
       <div className={styles["center-container"]}>
-        <Card
-          variant="solid"
-          color="primary"
-          invertedColors
-          sx={{ minWidth: 343 }}
-          // className={styles["signup-container"]}
-        >
+        <Card variant="solid" color="primary" invertedColors sx={{ minWidth: 343 }}>
           <h2 className={styles["signup-title"]}>Criar conta</h2>
+          {showAlertError && (
+            <Alert
+              variant="soft"
+              color="danger"
+              endDecorator={
+                <IconButton variant="soft" color="danger" onClick={() => setShowAlertError(false)}>
+                  <Close />
+                </IconButton>
+              }
+            >
+              Ocorreu um erro ao criar a conta, tente novamente.
+            </Alert>
+          )}
           <form method="POST" onSubmit={handleSubmit(registerUserMedic)}>
             <div className={styles["input-field"]}>
               <label htmlFor="first_name" className={styles["input-label"]}>
@@ -116,6 +138,7 @@ function SignUp() {
                 Senha:
               </label>
               <Input
+                type="password"
                 size="sm"
                 className={styles["input"]}
                 variant="soft"
@@ -124,6 +147,7 @@ function SignUp() {
             </div>
             <div className={styles["button-container"]}>
               <Button
+                loading={isLoading}
                 variant="solid"
                 sx={{ margin: "0px 0px 5px 0px" }}
                 className={styles["button"]}
