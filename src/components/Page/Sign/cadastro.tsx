@@ -3,7 +3,7 @@ import styles from "./SignUp.module.css";
 import Input from "@mui/joy/Input";
 import Card from "@mui/joy/Card";
 import Button from "@mui/joy/Button";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Grid from "@mui/joy/Grid";
 import zod from "zod";
@@ -38,6 +38,8 @@ function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [showAlertError, setShowAlertError] = useState(false);
 
+  const navigate = useNavigate();
+
   const registerUserMedic: SubmitHandler = async (data: any) => {
     const typedData = data as RegisterUser;
     setIsLoading(true);
@@ -59,7 +61,7 @@ function SignUp() {
   };
 
   const renderSignIn = () => {
-    return redirect("/signin");
+    return navigate("/signin");
   };
 
   return (
