@@ -10,51 +10,57 @@ import { Patients } from "./Page/Patients/index.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DocsAndPrescriptions from "./Page/DocsAndPrescriptions/index.tsx";
 import { ListPrescription } from "./Page/ListPrescription/index.tsx";
+import { HeaderDefault } from "./components/HeaderCreateAccount/HeaderDefault.tsx";
+
+const generateElementRoute = (element: JSX.Element) => {
+  return (
+    <>
+      <HeaderDefault />
+      {element}
+    </>
+  );
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
+    element: generateElementRoute(<LandingPage />),
   },
   {
     path: "/signup",
-    element: <SignUp />,
+    element: generateElementRoute(<SignUp />),
   },
   {
     path: "/signin",
-    element: <SignIn />,
+    element: generateElementRoute(<SignIn />),
   },
   {
     path: "/register/:patient_id",
-    element: <Register  />,
-  },
-  {
-    path: "/patients/:id",
-    element: <Patients />,
+    element: generateElementRoute(<Register />),
   },
   {
     path: "/prescriptions/paciente/:id",
-    element: <ListPrescription />,
+    element: generateElementRoute(<ListPrescription />),
   },
   {
     path: "/prescription/:id",
-    element: <Prescription />,
+    element: generateElementRoute(<Prescription />),
   },
   {
     path: "/patients/:id",
-    element: <Patients />,
+    element: generateElementRoute(<Patients />),
   },
   {
     path: "/certificate/:id",
-    element: <Certificate />,
+    element: generateElementRoute(<Certificate />),
   },
   {
     path: "/request/:id",
-    element: <Request />,
+    element: generateElementRoute(<Request />),
   },
   {
     path: "/docs/paciente/:id",
-    element: <DocsAndPrescriptions />,
+    element: generateElementRoute(<DocsAndPrescriptions />),
   },
 ]);
 
