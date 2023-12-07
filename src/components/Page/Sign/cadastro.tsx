@@ -47,11 +47,11 @@ function SignUp() {
     });
     console.log(response);
     if (response != null) {
-      if (String(options[`${e.role}`]) == "PATIENT") {
-        navigate(`/home/patient`);
-      } else {
-        console.log("not a patient");
-      }
+      // if (String(options[`${e.role}`]) == "PATIENT") {
+      navigate(`/signin`);
+      // } else {
+      //   console.log("not a patient");
+      // }
     }
   };
   const renderSignIn = () => {
